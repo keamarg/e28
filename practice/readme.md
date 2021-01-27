@@ -1,2 +1,2 @@
 # Practice app
-## By: Martin Gundtoft
+# By: Martin Gundtoft
