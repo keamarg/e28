@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang='en'>
+<head>
+    <title>Vue.js - guessing game</title>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" href="style.css">
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+</head>
+<body><div id='app' v-cloak>
+  <label>What's your name? <input type="text" v-model="playerName"></label>
+  <div v-if="playerName!=null">
+    <p>Player: {{ playerName }}</p>
+    <label>Guess a number from 1-100 <input type="text" v-model="guess" @keyup.enter="guessNumber()"></label>
+    <button @click="guessNumber()">Guess</button>
+    <ul>
+      <li v-for="thisGuess in guesses">{{ thisGuess }}</li>
+    </ul>
+  </div>
+  <div v-if="guess==number">
+    <p>You guessed correct! The number was {{guess}}</p>
+    <button v-on:click="number=createRandom();clearGame()">New game?</button>
+  </div>
+  <div v-else-if="guess<number && guessed==true">
+    <p>Nope, the number is higher</p>
+  </div>
+  <div v-else-if="guess>number && guessed==true">
+    <p>Nope, the number is lower</p>
+  </div>	
+</div>
+<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
