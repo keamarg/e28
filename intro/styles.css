@@ -1,0 +1,11 @@
+[v-cloak] {
+    display: none;
+}
+
+#correctGuess{
+    color:green;
+}
+
+#wrongGuess{
+    color:red;
+}

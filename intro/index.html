@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang='en'>
+
+<head>
+    <title>Vue.js Intro</title>
+    <meta charset='utf-8'>
+    <link href=data:, rel=icon>
+    <link rel="stylesheet" href="styles.css">
+
+    <script src='https://unpkg.com/vue@next' defer></script>
+    <script src='script.js' defer></script>
+</head>
+
+<body>
+    <h1>Vue.js Intro</h1>
+
+    <div id='app' v-cloak>
+        <div v-if="firstGame">
+            <label>What is your name? <input v-model="playerName" type="text" placeholder="Input name here"></label>
+            <button v-on:click="startGame()">Start game</button>
+        </div>
+        <div v-if="ready">
+            <label for="guess">
+                Hi {{ playerName }}. I am thinking of a number between 1 and 10. What do you think it is?
+                <input id="guess" type="text" v-model="guess">
+            </label>
+            <button v-on:click="addGuess()">Submit guess</button>
+            <ul>
+                <li v-for="thisGuess in guesses">{{thisGuess}}</li>
+            </ul>
+        </div>
+        <div v-if="correct">
+            <p id="correctGuess">Correct! You guessed it in {{guesses.length}} tries!</p>
+            <button v-if="correct" v-on:click="newGame">Play again?</button>
+        </div>
+        <div id="wrongGuess" v-else>
+            <p v-if="mysteryNumber &gt; guesses[guesses.length-1]">Sorry, the number I am thinking of his higher</p>
+            <p v-else-if="mysteryNumber &lt; guesses[guesses.length-1]">Sorry, the number I am thinking of is lower
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,7 +1,39 @@
-<html>
+<!doctype html>
+<html lang='en'>
 
-<h1>Welcome to practice</h1>
-<img src="hes-logo.png">
-<h2>By: Martin Gundtoft</h2>
+<head>
+    <title>Practice projects</title>
+    <meta charset='utf-8'>
+    <link href=data:, rel=icon>
+    <link rel="stylesheet" href="styles.css">
+
+    <script src='https://unpkg.com/vue@next' defer></script>
+    <script src='script.js' defer></script>
+</head>
+
+<body>
+    <div id='app' v-cloak>
+        <h1>Welcome to practice</h1>
+        <img src="hes-logo.png">
+        <h2>By: Martin Gundtoft</h2>
+
+        <h1>Shopping List</h1>
+        <label>
+            Item:
+            <input type="text" v-model="item">
+        </label>
+        <button v-on:click="addItem">Add</button>
+        <ul>
+            <li v-for="thisItem in items">{{thisItem}}</li>
+        </ul>
+        <div v-if="!empty">
+            <p>Item count: {{items.length}}</p>
+            <button v-on:click="removeItem">Remove item</button>
+        </div>
+        <div v-else>
+            <p>You have no items on your list</p>
+        </div>
+    </div>
+</body>
 
 </html>

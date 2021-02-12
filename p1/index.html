@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang='en'>
+
+<head>
+    <title>Project 1</title>
+    <meta charset='utf-8'>
+    <link href=data:, rel=icon>
+    <link rel="stylesheet" href="styles.css">
+
+    <script src='https://unpkg.com/vue@next' defer></script>
+    <script src='script.js' defer></script>
+</head>
+
+<body>
+    <div id='app' v-cloak>
+        <h1>Project 1</h1>
+        <div id="fullImage" class="image" v-if="!hidden">
+            <img v-bind:src="image">
+        </div>
+        <button v-on:click="showRandomImage">Show an image</button>
+</body>
+
+</html>

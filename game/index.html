@@ -4,16 +4,25 @@
 
 <head>
   <meta charset="utf-8">
-
-  <title>What is the image?</title>
+  <title>What is this?</title>
   <meta name="author" content="Martin Gundtoft">
-
   <link rel="stylesheet" href="css/styles.css">
-
 </head>
 
 <body>
-  <div id="output"></div>
+  <h1>What is this a closeup image of?</h1>
+  <div id="zoomImage" class="image"></div>
+  <div id="fullImage" class="image"></div>
+  <div id="radioButtons">
+    <input type="radio" id="radioButton1" name="guess" value="">
+    <label for="radioButton1" id="radioButton1Label"></label>
+    <input type="radio" id="radioButton2" name="guess" value="">
+    <label for="radioButton2" id="radioButton2Label"></label>
+    <input type="radio" id="radioButton3" name="guess" value="">
+    <label for="radioButton3" id="radioButton3Label"></label>
+    <span></span>
+  </div>
+  <button type="button" id="tryAgain">Try a new image?</button>
   <script src="js/scripts.js"></script>
 </body>
 
