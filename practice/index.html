@@ -19,20 +19,27 @@
 
         <h1>Shopping List</h1>
         <label>
+            Qty:
+            <input id="qtyLabel" type="number" v-model.number="qty">
+        </label>
+        <label>
             Item:
-            <input type="text" v-model="item">
+            <input id="itemLabel" type="text" v-model="item" @keyup.enter="addItem">
         </label>
         <button v-on:click="addItem">Add</button>
-        <ul>
-            <li v-for="thisItem in items">{{thisItem}}</li>
-        </ul>
         <div v-if="!empty">
-            <p>Item count: {{items.length}}</p>
-            <button v-on:click="removeItem">Remove item</button>
+            <p>Item count: {{itemCount}}</p>
+            <!-- <button v-on:click="removeItem">Remove item</button> -->
         </div>
         <div v-else>
             <p>You have no items on your list</p>
         </div>
+        <ul>
+            <li v-bind:value="index" v-for="(thisItem, index) in items">
+                <button v-on:click="removeItem">X</button>
+                {{items[index][0]}} x {{items[index][1]}}
+            </li>
+        </ul>
     </div>
 </body>
 
