@@ -1,0 +1,30 @@
+.hint{
+    font-style: italic;
+}
+
+.mysteryWord{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight:bold;
+    font-size:x-large;
+}
+
+[v-cloak]{
+    display:none;
+}
+
+.feedback{
+    color:white;
+    display:inline-block;
+    margin-top:20px;
+}
+
+.falseRed{
+    background-color: red;
+    padding:5px;
+}
+
+.trueGreen{
+    background-color: green;
+    padding:5px;
+}
+

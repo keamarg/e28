@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang='en'>
+
+<head>
+    <title></title>
+    <meta charset='utf-8'>
+    <link href=data:, rel=icon>
+    <link rel="stylesheet" href="style.css">
+
+    <script src='https://unpkg.com/vue@next' defer></script>
+    <script src='script.js' defer></script>
+</head>
+
+<body>
+    <div id='app' v-cloak>
+        <h1>Word Scramble</h1>
+        <div v-if="!ready">
+            <label>Enter your player name: <input v-model="playerName" type="text"
+                    placeholder="Input name here"></label>
+            <div>
+                <p>Choose a difficulty level:</p>
+                <select v-model='level'>
+                    <option value=''>Choose one...</option>
+                    <option value='easy'>Easy</option>
+                    <option value='medium'>Medium</option>
+                    <option value='hard'>Hard</option>
+                </select>
+            </div>
+            <br>
+            <button v-on:click="startGame()">Let's play!</button>
+        </div>
+        <div v-if="ready">
+            <p>Game on, {{playerName}}!</p>
+            <p>Your mystery word is: <span class="mysteryWord">{{scrambledWord}}</span></p>
+            <p>Hint: <i>{{mysteryWord[1]}}</i></p>
+
+            <label for='guess'>Your guess: </label>
+            <input type='text' id='guess' v-model.lazy='guess' @keyup.enter="submitGuess">
+
+            <button v-on:click='submitGuess'>Submit guess</button>
+        </div>
+        <div class="feedback" v-if="guess!=null">
+
+            <div v-if="correct" v-bind:class="{ trueGreen: correct}">
+                You got it! Nice work.
+                <button v-on:click='startGame'>Play again</button>
+            </div>
+            <div v-else v-bind:class=" {falseRed: !correct }">Sorry, that's not correct. Please try again.</div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -24,7 +24,7 @@
         </label>
         <label>
             Item:
-            <input id="itemLabel" type="text" v-model="item" @keyup.enter="addItem">
+            <input id="itemLabel" type="text" v-model="item" v-on:keyup.enter="addItem">
         </label>
         <button v-on:click="addItem">Add</button>
         <div v-if="!empty">
