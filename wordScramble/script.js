@@ -65,22 +65,14 @@ const WordScramble = {
 const FeedbackText = {
     name: "FeedbackText",
     data() {
-        return;
+        return {};
     },
     props: {
         correct: { type: Boolean },
         guess: { type: String }
     },
     //v-if="guess!=null"
-    template: `
-        <div v-if="guess!=null">
-            <div v-if="correct" v-bind:class="{ trueGreen: correct}">
-                You got it! Nice work.
-                <button v-on:click='$emit("start-game")'>Play again</button>
-            </div>
-            <div v-else v-bind:class=" {falseRed: !correct }">Sorry, that's not correct. Please try again.</div>
-        <div>
-    `,
+    template: "#feedback-message",
 
 }
 

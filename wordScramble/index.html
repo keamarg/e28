@@ -42,6 +42,16 @@
             </feedback-text>
         </div>
     </div>
+    <script id="feedback-message" type="text/x-template">
+        <div v-if="guess!=null">
+            <div v-if="correct" v-bind:class="{ trueGreen: correct}">
+                You got it! Nice work.
+                <button v-on:click='$emit("start-game")'>Play again</button>
+            </div>
+            <div v-else v-bind:class="{falseRed:!correct}">
+                Sorry, that's not correct. Please try again.</div>
+        </div>
+    </script>
 </body>
 
 </html>
