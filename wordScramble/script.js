@@ -1,4 +1,4 @@
-const wordScramble = {
+const WordScramble = {
     data() {
         return {
             playerName: "",
@@ -62,4 +62,28 @@ const wordScramble = {
     }
 }
 
-const app = Vue.createApp(wordScramble).mount('#app');
+const FeedbackText = {
+    name: "FeedbackText",
+    data() {
+        return;
+    },
+    props: {
+        correct: { type: Boolean },
+        guess: { type: String }
+    },
+    //v-if="guess!=null"
+    template: `
+        <div v-if="guess!=null">
+            <div v-if="correct" v-bind:class="{ trueGreen: correct}">
+                You got it! Nice work.
+                <button v-on:click='$emit("start-game")'>Play again</button>
+            </div>
+            <div v-else v-bind:class=" {falseRed: !correct }">Sorry, that's not correct. Please try again.</div>
+        <div>
+    `,
+
+}
+
+const app = Vue.createApp(WordScramble)
+app.component("feedback-text", FeedbackText);
+app.mount('#app');

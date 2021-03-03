@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang='en'>
+
+<head>
+    <title>Week 6 Examples</title>
+    <meta charset='utf-8'>
+    <link href=data:, rel=icon>
+    <link rel="stylesheet" href="style.css">
+
+    <script src='https://unpkg.com/vue@next'></script>
+    <script src='script.js' defer></script>
+
+    <style>
+        [v-cloak] {
+            display: none
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Week 6 examples</h1>
+
+    <div id='app' v-cloak>
+        <h2>Game history</h2>
+        <div id="history">
+            <round-detail v-for="round in rounds" v-bind:key="round.number" v-bind:number="round.number"
+                v-bind:winner="round.winner" v-on:delete-round="deleteRound($event)" v-bind:choice="round.choice">
+                <template v-slot:coin>The coin landed on {{round.coin}}</template>
+            </round-detail>
+        </div>
+    </div>
+
+    <script id="round-detail" type="text/x-template">
+        <div>
+            <ul>
+                <li>Round #: {{number}}</li>
+                <li>Winner: {{winner}}</li>
+                <li>Player chose: {{choice}} </li>
+                <li><slot name="coin"></slot></li>
+            </ul>
+            <button v-on:click='$emit("delete-round", number)'>Delete from history</button>
+        </div>
+    </script>
+
+</body>
+
+</html>

@@ -38,14 +38,8 @@
             <input type='text' id='guess' v-model.lazy='guess' @keyup.enter="submitGuess">
 
             <button v-on:click='submitGuess'>Submit guess</button>
-        </div>
-        <div class="feedback" v-if="guess!=null">
-
-            <div v-if="correct" v-bind:class="{ trueGreen: correct}">
-                You got it! Nice work.
-                <button v-on:click='startGame'>Play again</button>
-            </div>
-            <div v-else v-bind:class=" {falseRed: !correct }">Sorry, that's not correct. Please try again.</div>
+            <feedback-text v-bind:correct="correct" v-bind:guess="guess" v-on:start-game="startGame($event)">
+            </feedback-text>
         </div>
     </div>
 </body>
