@@ -91,7 +91,8 @@
             <span v-if="ready">
                 <p id="playerScore">{{playerName}} score<br> {{playerScore}}</p>
                 <countdown-timer v-if="loaded" v-on:update-time="timerCount=($event)" v-bind:feedback="feedback"
-                    v-bind:computer-guess="computerGuess" v-bind:guess="guess" v-bind:end-screen="endScreen">
+                    v-bind:computer-guess="computerGuess" v-bind:guess="guess" v-bind:random-time="randomTime"
+                    v-bind:end-screen="endScreen">
                 </countdown-timer>
                 <p id="computerScore">Computer score<br> {{computerScore}}</p>
             </span>

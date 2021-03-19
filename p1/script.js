@@ -5,6 +5,7 @@ const Project = {
                 backgroundImage: 'url(https://source.unsplash.com/random)',
             },
             timerCount: null,
+            randomTime: null,
             playerName: "",
             ready: false,
             guess: null,
@@ -53,10 +54,12 @@ const Project = {
         computerGuess() {
             computerGuess = this.guessOptions[Math.floor(Math.random() * (this.guessOptions.length))];
             return computerGuess;
-        }
+        },
+
     },
     methods: {
         startGame() {
+            this.randomTime = this.giveRandomTime();
             this.finalScore = false;
             if (this.numberGames < 1) {
                 this.numberGames = 6;
@@ -142,25 +145,25 @@ const Project = {
             }
             if (this.level == "easy") {
                 if (this.computerGuess == this.word) {
-                    this.computerScore = this.timerCount - 1;
+                    this.computerScore = this.computerScore + this.randomTime - 1;
                 } else {
                     this.computerScore = this.computerScore - 2;
                 }
             } else if (this.level == "medium") {
                 if (this.computerGuess == this.word) {
-                    this.computerScore = this.timerCount;
+                    this.computerScore = this.computerScore + this.randomTime;
                 } else {
                     this.computerScore--;
                 }
             } else if (this.level == "hard") {
                 if (this.computerGuess == this.word) {
-                    this.computerScore = this.timerCount + 1;
+                    this.computerScore = this.computerScore + this.randomTime + 1;
                 } else {
                     this.computerScore--;
                 }
             }
             if (this.correct) {
-                this.playerScore = this.playerScore + this.timerCount;
+                this.playerScore = this.playerScore + this.points;
             } else {
                 this.playerScore--;
             }
@@ -174,6 +177,9 @@ const Project = {
         showFinalScore() {
             this.finalScore = true;
         },
+        giveRandomTime() {
+            return Math.ceil(Math.random() * 10) + 1
+        },
     }
 }
 
@@ -183,10 +189,10 @@ const CountdownTimer = {
     data() {
         return {
             timerCount: 10,
-            randomTime: Math.ceil(Math.random() * 10) + 1,
         }
     },
     props: {
+        randomTime: { type: Number },
         feedback: { type: Boolean },
         computerGuess: { type: String },
         guess: { type: null },
