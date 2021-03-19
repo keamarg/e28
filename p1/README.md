@@ -11,6 +11,8 @@
 
 ## Notes for instructor
 ### Requirements
+Due to API limitations, sometimes, the pictures will not make perfect sense. I learned a lot implementing the API's rather than using fixed images though.
+
 I have a few comments to these requirements:
 
 * Keep track of a) a running score and b) results of each round of the game played.
