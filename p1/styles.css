@@ -22,6 +22,8 @@ input{
     opacity: 0.8;
     transition: 0.3s;
     border-radius: 5px;
+    margin-left:1rem;
+    margin-right:1rem;
 }
 
 button:hover {
@@ -71,10 +73,10 @@ select{
 }
 
 .footer{
-    position: fixed;
+    position:absolute;
     bottom: 0px;
-    width: 50%;
-    min-width: 50rem;
+    width:100%;
+    bottom:0rem;
     text-align: center;
     color:white;
     opacity: 0.4;

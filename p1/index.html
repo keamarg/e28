@@ -41,8 +41,8 @@
                         <h4>Choose a gamemode</h4>
                         <div class="select">
                             <select v-model='gameMode'>
-                                <option value='random'>Random</option>
                                 <option value='animals'>Animals</option>
+                                <option value='random'>Random</option>
                             </select>
                         </div>
                         <br>
@@ -67,12 +67,11 @@
                             <img class="imgZoom" v-bind:src="image">
                         </div>
                         <span v-if="!feedback && !endScreen">
-                            <span v-for='(value, key) in guessOptions'>
-                                <input type='radio' v-bind:id='key' v-bind:value='value' v-model='guess'>
-                                <label v-bind:for='key'>&nbsp;{{ guessOptions[key] }} &nbsp;</label>
-                            </span>
                             <br>
-                            <button class="btns" v-on:click="showFeedback">Guess!</button>
+                            <span v-for='(value, key) in guessOptions'>
+                                <button class="btns" v-on:click="guessClick(value)" type='button' v-bind:id='key'
+                                    v-bind:value='value'>&nbsp;{{ guessOptions[key] }} &nbsp;</button>
+                            </span>
                         </span>
                     </div>
                 </div>

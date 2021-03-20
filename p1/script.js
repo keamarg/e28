@@ -16,7 +16,7 @@ const Project = {
             playerScore: 0,
             points: null,
             finalScore: false,
-            level: "easy",
+            level: "medium",
             loaded: false,
             fallBackItems:
             {
@@ -40,7 +40,7 @@ const Project = {
             queryWords: "https://wordsapiv1.p.rapidapi.com/words/?random=true&partOfSpeech=noun&lettersMin=4&lettersMax=8&frequencyMin=5",
             apiKeyUnsplash: "&client_id=3PuWw0eAXi7CNWehCyheXrZjoWy1GsvJ9For49XeWj0",
             apiKeyWords: "&rapidapi-key=4e9b3cd58bmsh471fb84316da8d4p132465jsn14169d1252ca",
-            gameMode: "random",
+            gameMode: "animals",
             randomAnimal: "https://random-word-form.herokuapp.com/random/animal",
             numberGames: 5,
             endScreen: false,
@@ -134,6 +134,10 @@ const Project = {
             if (Object.keys(this.fallBackItems).length < 1) {
                 this.fallBackItems = this.usedFallBackItems;
             }
+        },
+        guessClick(clickValue) {
+            this.guess = clickValue;
+            this.showFeedback();
         },
         showFeedback() {
             this.points = this.timerCount;
