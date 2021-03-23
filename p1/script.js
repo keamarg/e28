@@ -78,15 +78,15 @@ const Project = {
             this.guessOptions = [];
             this.loadNewWord();
         },
-        //updated with a less esoteric list of local animal names, rather than using the random animal API
 
         loadNewWord() {
             if (this.gameMode == "simpleAnimals") {
-                if (this.guessOptions.length < 3) {
+                if (this.guessOptions.length < 2) {
                     this.guessOptions[this.guessOptions.length] = animals[Math.floor(Math.random() * animals.length)];
                     this.loadNewWord();
                 } else {
-                    this.word = this.guessOptions[0];
+                    this.word = animals[Math.floor(Math.random() * animals.length)];
+                    this.guessOptions.push(this.word);
                     this.loadNewImage();
                 }
             } else {
