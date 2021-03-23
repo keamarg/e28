@@ -10,6 +10,7 @@
     <meta name="author" content="Martin Gundtoft">
     <script src='https://unpkg.com/vue@next' defer></script>
     <script src='script.js' defer></script>
+    <script src='animals.js' defer></script>
 </head>
 
 <body>
@@ -41,8 +42,9 @@
                         <h4>Choose a gamemode</h4>
                         <div class="select">
                             <select v-model='gameMode'>
-                                <option value='animals'>Animals</option>
+                                <option value='simpleAnimals'>Animals</option>
                                 <option value='random'>Random</option>
+                                <option value='animals'>Animals(API)</option>
                             </select>
                         </div>
                         <br>

@@ -36,11 +36,10 @@ const Project = {
             word: "",
             hidden: true,
             queryUnsplash: "https://api.unsplash.com/photos/random?query=",
-            queryUnsplashAnimal: "https://api.unsplash.com/photos/random?query=animal&query=",
             queryWords: "https://wordsapiv1.p.rapidapi.com/words/?random=true&partOfSpeech=noun&lettersMin=4&lettersMax=8&frequencyMin=5",
             apiKeyUnsplash: "&client_id=3PuWw0eAXi7CNWehCyheXrZjoWy1GsvJ9For49XeWj0",
             apiKeyWords: "&rapidapi-key=4e9b3cd58bmsh471fb84316da8d4p132465jsn14169d1252ca",
-            gameMode: "animals",
+            gameMode: "simpleAnimals",
             randomAnimal: "https://random-word-form.herokuapp.com/random/animal",
             numberGames: 5,
             endScreen: false,
@@ -79,31 +78,42 @@ const Project = {
             this.guessOptions = [];
             this.loadNewWord();
         },
+        //updated with a less esoteric list of local animal names, rather than using the random animal API
+
         loadNewWord() {
-            fetch(this.gameMode == "animals" ? this.randomAnimal : this.queryWords + this.apiKeyWords)
-                .then(response => {
-                    if (!response.ok) {
-                        throw Error(response.statusText);
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    if (this.guessOptions.length < 2) {
-                        this.guessOptions[this.guessOptions.length] = Object.values(data)[0];
-                        this.loadNewWord();
-                    } else {
-                        this.word = Object.values(data)[0];
-                        this.guessOptions.push(this.word);
-                        this.loadNewImage();
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                });
+            if (this.gameMode == "simpleAnimals") {
+                if (this.guessOptions.length < 3) {
+                    this.guessOptions[this.guessOptions.length] = animals[Math.floor(Math.random() * animals.length)];
+                    this.loadNewWord();
+                } else {
+                    this.word = this.guessOptions[0];
+                    this.loadNewImage();
+                }
+            } else {
+                fetch(this.gameMode == "animals" ? this.randomAnimal : this.queryWords + this.apiKeyWords)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw Error(response.statusText);
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        if (this.guessOptions.length < 2) {
+                            this.guessOptions[this.guessOptions.length] = Object.values(data)[0];
+                            this.loadNewWord();
+                        } else {
+                            this.word = Object.values(data)[0];
+                            this.guessOptions.push(this.word);
+                            this.loadNewImage();
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
+            }
         },
         loadNewImage() {
-            fetch(this.animalGame ? this.queryUnsplashAnimal + this.word + this.apiKeyUnsplash : this.queryUnsplash + this.word + this.apiKeyUnsplash)
-                //fetch(this.queryUnsplash + this.word + this.apiKeyUnsplash) //secret: 5UEvgy8ko5iTpAzrxgjnefTZJS9H4SYll_kK5ls7hWI other: 3PuWw0eAXi7CNWehCyheXrZjoWy1GsvJ9For49XeWj0
+            fetch(this.queryUnsplash + this.word + this.apiKeyUnsplash)
                 .then((response) => {
                     if (!response.ok) {
                         console.log("loading fallback");
