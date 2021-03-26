@@ -16,79 +16,83 @@
 <body>
     <div id='app' v-cloak>
         <div class="wrapper" v-bind:style="playerName ? '' : styleObject">
-            <div class=" titleText" v-if="!playerName">
-                <h1>Guess the search word</h1>
-                <h3>...from the image</h3>
+            <span class="responsive">
+                <div class=" titleText" v-if="!playerName">
+                    <h1>Guess the search word</h1>
+                    <h3>...from the image</h3>
+                    <div>
+                        <label>Enter your player name:
+                            <input size="25" v-model.lazy=" playerName" type="text"
+                                placeholder="Input name and press enter">
+                        </label>
+                    </div>
+                </div>
                 <div>
-                    <label>Enter your player name:
-                        <input size="25" v-model.lazy=" playerName" type="text"
-                            placeholder="Input name and press enter">
-                    </label>
-                </div>
-            </div>
-            <div>
-                <div v-if="!playerName=='' && !ready" class="helloText">
-                    <h2>Guess the search word</h2>
-                    <p>Hello {{playerName}}! In this little game, you have to guess which search word has been used to
-                        find
-                        the
-                        zooming image. You get
-                        more points the faster you guess the correct word. But beware of wrong guesses, they will deduct
-                        from
-                        your
-                        score,
-                        and the computer is a worthy opponent!</p>
-                    <div class="selects">
-                        <h4>Choose a gamemode</h4>
-                        <div class="select">
-                            <select v-model='gameMode'>
-                                <option value='simpleAnimals'>Animals</option>
-                                <option value='random'>Random</option>
-                                <option value='animals'>Animals(API)</option>
-                            </select>
-                        </div>
-                        <br>
-                        <h4>Choose a difficulty level</h4>
-                        <div class="select">
-                            <select v-model='level'>
-                                <option value='easy'>Easy</option>
-                                <option value='medium'>Medium</option>
-                                <option value='hard'>Hard</option>
-                            </select>
-                        </div>
-                    </div>
-                    <br><br>
-                    <button class="btns" v-on:click="startGame()">Let's play!</button>
-                </div>
-            </div>
-            <div v-if="ready" class="game">
-                <h2>Guess the search word</h2>
-                <div v-if="loaded">
-                    <div v-bind:value="word">
-                        <div id="imageFrame">
-                            <img class="imgZoom" v-bind:src="image">
-                        </div>
-                        <span v-if="!feedback && !endScreen">
+                    <div v-if="!playerName=='' && !ready" class="helloText">
+                        <h2>Guess the search word</h2>
+                        <p>Hello {{playerName}}! In this little game, you have to guess which search word has been used
+                            to
+                            find
+                            the
+                            zooming image. You get
+                            more points the faster you guess the correct word. But beware of wrong guesses, they will
+                            deduct
+                            from
+                            your
+                            score,
+                            and the computer is a worthy opponent!</p>
+                        <div class="selects">
+                            <h4>Choose a gamemode</h4>
+                            <div class="select">
+                                <select v-model='gameMode'>
+                                    <option value='simpleAnimals'>Animals</option>
+                                    <option value='random'>Random</option>
+                                    <option value='animals'>Animals(API)</option>
+                                </select>
+                            </div>
                             <br>
-                            <span v-for='(value, key) in guessOptions'>
-                                <button class="btns" v-on:click="guessClick(value)" type='button' v-bind:id='key'
-                                    v-bind:value='value'>&nbsp;{{ guessOptions[key] }} &nbsp;</button>
-                            </span>
-                        </span>
+                            <h4>Choose a difficulty level</h4>
+                            <div class="select">
+                                <select v-model='level'>
+                                    <option value='easy'>Easy</option>
+                                    <option value='medium'>Medium</option>
+                                    <option value='hard'>Hard</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br><br>
+                        <button class="btns" v-on:click="startGame()">Let's play!</button>
                     </div>
                 </div>
-                <div v-else>
-                    <p>The words are {{guessOptions[0]}}, {{guessOptions[1]}} and {{guessOptions[2]}}</p>
-                    loading images...
-                    <div class="spinner-border spinner-border-sm text-dark"></div>
+                <div v-if="ready" class="game">
+                    <h2>Guess the search word</h2>
+                    <div v-if="loaded">
+                        <div v-bind:value="word">
+                            <div id="imageFrame">
+                                <img class="imgZoom" v-bind:src="image">
+                            </div>
+                            <span v-if="!feedback && !endScreen">
+                                <br>
+                                <span v-for='(value, key) in guessOptions'>
+                                    <button class="btns" v-on:click="guessClick(value)" type='button' v-bind:id='key'
+                                        v-bind:value='value'>&nbsp;{{ guessOptions[key] }} &nbsp;</button>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <p>The words are {{guessOptions[0]}}, {{guessOptions[1]}} and {{guessOptions[2]}}</p>
+                        loading images...
+                        <div class="spinner-border spinner-border-sm text-dark"></div>
+                    </div>
+                    <feedback-text v-bind:guess="guess" v-bind:timer-count="timerCount" v-bind:correct="correct"
+                        v-bind:feedback="feedback" v-bind:end-screen="endScreen" v-bind:word="word"
+                        v-bind:player-score="playerScore" v-bind:computer-score="computerScore"
+                        v-bind:computer-guess="computerGuess" v-bind:player-name="playerName" v-bind:points="points"
+                        v-bind:final-score="finalScore" v-on:start-game="startGame($event)"
+                        v-on:final-score="showFinalScore($event)"></feedback-text>
                 </div>
-                <feedback-text v-bind:guess="guess" v-bind:timer-count="timerCount" v-bind:correct="correct"
-                    v-bind:feedback="feedback" v-bind:end-screen="endScreen" v-bind:word="word"
-                    v-bind:player-score="playerScore" v-bind:computer-score="computerScore"
-                    v-bind:computer-guess="computerGuess" v-bind:player-name="playerName" v-bind:points="points"
-                    v-bind:final-score="finalScore" v-on:start-game="startGame($event)"
-                    v-on:final-score="showFinalScore($event)"></feedback-text>
-            </div>
+            </span>
             <span v-if="ready">
                 <p id="playerScore">{{playerName}} score<br> {{playerScore}}</p>
                 <countdown-timer v-if="loaded" v-on:update-time="timerCount=($event)" v-bind:feedback="feedback"

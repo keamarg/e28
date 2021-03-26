@@ -67,7 +67,7 @@ select{
     background-size: cover;
     width:50%;
     min-width: 50rem;
-    height:50rem;
+    min-height: 50rem;
     margin: 0 auto;
 
 }
@@ -260,4 +260,19 @@ select {
   /* Transition */
   .select:hover::after {
     color: #ffd166;
+  }
+
+  @media only screen and (max-device-width: 768px) {
+    /* For mobile phones: */
+    .wrapper{
+        height: 100vh;
+    }
+    .responsive{
+        position: relative;
+        top: 20vh;
+    }
+    .guessYellow{
+        position: relative;
+        top: 30vh;
+    }
   }
