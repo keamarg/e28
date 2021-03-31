@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang='en'>
+
+<head>
+    <title>Project 1</title>
+    <meta charset='utf-8'>
+    <link href=data:, rel=icon>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="author" content="Martin Gundtoft">
+    <script src='https://unpkg.com/vue@next' defer></script>
+    <script src='script.js' defer></script>
+    <script src='animals.js' defer></script>
+</head>
+
+<body>
+    <div id='app' v-cloak>
+        <div class="wrapper" v-bind:style="playerName ? '' : styleObject">
+            <div class=" titleText" v-if="!playerName">
+                <h1>Guess the search word</h1>
+                <h3>...from the image</h3>
+                <div>
+                    <label>Enter your player name:
+                        <input size="25" v-model.lazy=" playerName" type="text"
+                            placeholder="Input name and press enter">
+                    </label>
+                </div>
+            </div>
+            <button id="show-modal" v-on:click="showModal = true">Show leaderboard</button>
+            <!-- use the modal component, pass in the prop -->
+            <modal-highscore v-if="showModal" v-on:close="showModal = false" v-bind:high-scores="highScores">
+                <!--
+  you can use custom content here to overwrite
+  default content
+-->
+                <template v-slot:header>
+                    <h3>Leaderboard</h3>
+                </template>
+            </modal-highscore>
+            <div>
+                <div v-if="!playerName=='' && !ready" class="helloText">
+                    <h2>Guess the search word</h2>
+                    <p>Hello {{playerName}}! In this little game, you have to guess which search word has been used to
+                        find
+                        the
+                        zooming image. You get
+                        more points the faster you guess the correct word. But beware of wrong guesses, they will deduct
+                        from
+                        your
+                        score,
+                        and the computer is a worthy opponent!</p>
+                    <div class="selects">
+                        <h4>Choose a gamemode</h4>
+                        <div class="select">
+                            <select v-model='gameMode'>
+                                <option value='simpleAnimals'>Animals</option>
+                                <option value='random'>Random</option>
+                                <option value='animals'>Animals(API)</option>
+                            </select>
+                        </div>
+                        <br>
+                        <h4>Choose a difficulty level</h4>
+                        <div class="select">
+                            <select v-model='level'>
+                                <option value='easy'>Easy</option>
+                                <option value='medium'>Medium</option>
+                                <option value='hard'>Hard</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br><br>
+                    <button class="btns" v-on:click="startGame()">Let's play!</button>
+                </div>
+            </div>
+            <div v-if="ready" class="game">
+                <h2>Guess the search word</h2>
+                <div v-if="loaded">
+                    <div v-bind:value="word">
+                        <div id="imageFrame">
+                            <img class="imgZoom" v-bind:src="image">
+                        </div>
+                        <span v-if="!feedback && !endScreen">
+                            <br>
+                            <span v-for='(value, key) in guessOptions'>
+                                <button class="btns" v-on:click="guessClick(value)" type='button' v-bind:id='key'
+                                    v-bind:value='value'>&nbsp;{{ guessOptions[key] }} &nbsp;</button>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div v-else>
+                    <p>The words are {{guessOptions[0]}}, {{guessOptions[1]}} and {{guessOptions[2]}}</p>
+                    loading images...
+                    <div class="spinner-border spinner-border-sm text-dark"></div>
+                </div>
+                <feedback-text v-bind:guess="guess" v-bind:timer-count="timerCount" v-bind:correct="correct"
+                    v-bind:feedback="feedback" v-bind:end-screen="endScreen" v-bind:word="word"
+                    v-bind:player-score="playerScore" v-bind:computer-score="computerScore"
+                    v-bind:computer-guess="computerGuess" v-bind:player-name="playerName" v-bind:points="points"
+                    v-bind:final-score="finalScore" v-on:start-game="startGame($event)"
+                    v-on:final-score="showFinalScore($event)"></feedback-text>
+            </div>
+            <span v-if="ready">
+                <p id="playerScore">{{playerName}} score<br> {{playerScore}}</p>
+                <countdown-timer v-if="loaded" v-on:update-time="timerCount=($event)" v-bind:feedback="feedback"
+                    v-bind:computer-guess="computerGuess" v-bind:guess="guess" v-bind:random-time="randomTime"
+                    v-bind:end-screen="endScreen">
+                </countdown-timer>
+                <p id="computerScore">Computer score<br> {{computerScore}}</p>
+            </span>
+            <footer class="footer">
+                <span id="footerText">***running on Words API and Unsplash API***</span>
+            </footer>
+        </div>
+    </div>
+
+    <script id="feedback-message" type="text/x-template">
+    <div>
+        <div v-if="feedback && timerCount==1">
+            <div v-if="correct" v-bind:class="{ trueGreen: correct}">
+                <p>You got it {{playerName}}, "{{guess}}" was correct! You scored {{points}} points. The computer guessed "{{computerGuess}}".</p>
+                <button class="altBtn btns" v-on:click='$emit("start-game")'>Next round</button>
+            </div>
+            <div v-else v-bind:class="{falseRed:!correct}">
+                <p>Sorry, "{{guess}}" is not correct. The search word was "{{word}}". The computer guessed "{{computerGuess}}".</p>
+                <button class="altBtn btns" v-on:click='$emit("start-game")'>Next round</button>
+            </div>
+        </div>
+        <div v-if="endScreen && timerCount==1 && !finalScore">
+            <div v-if="correct" v-bind:class="{ trueGreen: correct}">
+                <p>You got it {{playerName}}, "{{guess}}" was correct! You scored {{points}} points. The computer guessed "{{computerGuess}}".</p>
+                <button class="altBtn btns" v-on:click='$emit("final-score")'>See final score</button>
+            </div>
+            <div v-else v-bind:class="{falseRed:!correct}">
+                <p>Sorry, "{{guess}}" is not correct. The search word was "{{word}}". The computer guessed "{{computerGuess}}".</p>
+                <button class="altBtn btns" v-on:click='$emit("final-score")'>See final score</button>
+            </div>
+        </div>
+        <div v-if="finalScore">
+            <div v-bind:class="'endBlue'">
+                <h3>Final score</h3>
+                <p>{{playerName}}: {{playerScore}}</p>
+                <p>Computer: {{computerScore}}</p>
+                <button class="altBtn btns" v-on:click='$emit("start-game")'>Play again</button>
+            </div>
+        </div>
+    </div>
+    </script>
+
+    <script id="countdown-timer" type="text/x-template">
+        <div id="timer">
+            <div v-if="!feedback && !endScreen">
+                <p v-if="timerCount<randomTime" class="guessYellow">Computer guessed: "{{computerGuess}}".</p>
+            </div>
+            <p id="pointTimer" v-if="!endScreen">Points <br> {{timerCount}}</p>
+        </div>
+    </script>
+
+    <!-- template for the modal component -->
+    <script type="text/x-template" id="modal-highscore">
+    <transition name="modal">
+      <div class="modal-mask">
+        <div class="modal-wrapper">
+          <div class="modal-container">
+  
+            <div class="modal-header">
+              <slot name="header">
+                default header
+              </slot>
+            </div>
+  
+            <div class="modal-body">
+              <slot name="body">
+                <span v-for='(value, key) in highScores'>
+                {{highScores[key]}}
+                </span>
+              </slot>
+            </div>
+  
+            <div class="modal-footer">
+              <slot name="footer">
+                Close leaderboard
+                <button class="modal-default-button" @click="$emit('close')">
+                  OK
+                </button>
+              </slot>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </script>
+
+</body>
+
+</html>
