@@ -7,8 +7,10 @@
       v-bind:src="require('@/assets/images/products/' + product.id + '.jpg')"
     />
 
-    <div class="price">${{ product.price }}</div>
-    <p class="description">{{ product.description }}</p>
+    <div v-if="showProductDetails()" class="price">${{ product.price }}</div>
+    <p v-if="showProductDetails()" class="description">
+      {{ product.description }}
+    </p>
   </div>
 </template>
 
@@ -17,6 +19,11 @@ export default {
   props: {
     product: {
       type: Object,
+    },
+  },
+  methods: {
+    showProductDetails() {
+      return this.$route.fullPath !== "/products";
     },
   },
 };

@@ -1,0 +1,45 @@
+#app {
+    max-width: 1000px;
+    width: 100%;
+    margin: auto;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+#logo {
+    /* Actual width is 1262; displaying at half-size for retina screens */
+    width: 631px;
+    margin-top: 15px;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a:link,
+a:visited,
+a:hover,
+a:active {
+    /* Ref: https://stackoverflow.com/a/49783868 for why inline-block is added */
+    display: inline-block;
+    text-transform: capitalize;
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+    color: var(--blue);
+    font-weight: bold;
+}
+
+nav ul li a.router-link-active:link,
+a.router-link-active:visited,
+a.router-link-active:hover,
+a.router-link-active:active {
+    text-decoration: none;
+    color: var(--black);
+    background-color: var(--light-blue);
+    cursor: inherit;
+}

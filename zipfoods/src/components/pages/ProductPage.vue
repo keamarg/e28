@@ -9,7 +9,7 @@
     </template>
     <span v-if="id > 10">
       <p>Product {{ id }} not found</p>
-      <a href="/products">Back to products page</a>
+      <router-link to="/products">Back to products page</router-link>
     </span>
   </div>
 </template>
