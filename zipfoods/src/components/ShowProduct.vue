@@ -2,10 +2,7 @@
   <div class="show-product">
     <div class="name">{{ product.name }}</div>
 
-    <img
-      class="thumb"
-      v-bind:src="require('@/assets/images/products/' + product.id + '.jpg')"
-    />
+    <img class="thumb" v-bind:src="imgSrc" />
 
     <div v-if="showProductDetails()" class="price">${{ product.price }}</div>
     <p v-if="showProductDetails()" class="description">
@@ -20,10 +17,23 @@ export default {
     product: {
       type: Object,
     },
+    detailed: {
+      type: Boolean,
+      default: true,
+    },
   },
   methods: {
     showProductDetails() {
       return this.$route.fullPath !== "/products";
+    },
+  },
+  computed: {
+    imgSrc() {
+      try {
+        return require("@/assets/images/products/" + this.product.id + ".jpg");
+      } catch (e) {
+        return require("@/assets/images/products/image-not-available.jpg");
+      }
     },
   },
 };

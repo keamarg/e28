@@ -7,7 +7,10 @@
         v-bind:key="product.id"
         v-bind:to="'/products/' + product.id"
       >
-        <show-product v-bind:product="product"></show-product>
+        <show-product
+          v-bind:product="product"
+          v-bind:detailed="false"
+        ></show-product>
       </router-link>
     </div>
   </div>
@@ -15,19 +18,17 @@
 
 <script>
 import ShowProduct from "@/components/ShowProduct.vue";
-import { products } from "@/common/products.js";
 
 export default {
-  //   props: {
-  //     products: {
-  //       type: Array,
-  //     },
-  //   },
   components: { "show-product": ShowProduct },
+  props: {
+    products: {
+      type: Array,
+      default: null,
+    },
+  },
   data() {
-    return {
-      products: products,
-    };
+    return {};
   },
 };
 </script>

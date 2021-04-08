@@ -10,18 +10,18 @@
 </template>
 
 <script>
+import { products } from "@/common/products.js";
 export default {
   props: {
     category: {
       type: String,
     },
-    products: {
-      type: Array,
-      default: null,
-    },
+    // products: { type: Array },
   },
   data() {
-    return {};
+    return {
+      products: products,
+    };
   },
   computed: {
     featuredProducts() {

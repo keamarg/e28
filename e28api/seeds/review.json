@@ -1,0 +1,19 @@
+{
+    "seeds": [
+        {
+            "content": "This product was very good. It really made my day, but not so good that I made it to a 100 word review",
+            "rating": 5,
+            "product_id": 1
+        },
+        {
+            "content": "This product was OK",
+            "rating": 3,
+            "product_id": 1
+        },
+        {
+            "content": "This product was terrible",
+            "rating": 1,
+            "product_id": 3
+        }
+    ]
+}

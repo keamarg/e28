@@ -7,6 +7,8 @@ import HomePage from '@/components/pages/HomePage.vue';
 import ProductsPage from '@/components/pages/ProductsPage.vue';
 import CategoriesPage from '@/components/pages/CategoriesPage.vue';
 import ProductPage from '@/components/pages/ProductPage.vue';
+import ProductCreatePage from '@/components/pages/ProductCreatePage.vue';
+
 
 
 const router = createRouter({
@@ -15,7 +17,8 @@ const router = createRouter({
         { path: "/", component: HomePage },
         { path: "/products", component: ProductsPage },
         { path: "/products/:id", component: ProductPage, props: true },
-        { path: "/categories", component: CategoriesPage }
+        { path: "/categories", component: CategoriesPage },
+        { path: "/product/new", component: ProductCreatePage },
 
     ]
 });
