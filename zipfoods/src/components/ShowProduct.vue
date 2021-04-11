@@ -1,18 +1,30 @@
 <template>
   <div class="show-product">
     <div class="name">{{ product.name }}</div>
-
     <img class="thumb" v-bind:src="imgSrc" />
-
-    <div v-if="showProductDetails()" class="price">${{ product.price }}</div>
-    <p v-if="showProductDetails()" class="description">
-      {{ product.description }}
-    </p>
+    <div v-if="!editProduct">
+      <div v-if="showProductDetails()" class="price">${{ product.price }}</div>
+      <p v-if="showProductDetails()" class="description">
+        {{ product.description }}
+      </p>
+      <button v-if="showProductDetails()" v-on:click="editProduct = true">
+        Edit product
+      </button>
+    </div>
+    <product-edit-page
+      v-if="editProduct"
+      v-bind:product="product"
+    ></product-edit-page>
+    <button v-if="editProduct == true" v-on:click="editProduct = false">
+      Back to product
+    </button>
   </div>
 </template>
 
 <script>
+import ProductEditPage from "./pages/ProductEditPage.vue";
 export default {
+  components: { ProductEditPage },
   props: {
     product: {
       type: Object,
@@ -21,6 +33,11 @@ export default {
       type: Boolean,
       default: true,
     },
+  },
+  data() {
+    return {
+      editProduct: false,
+    };
   },
   methods: {
     showProductDetails() {

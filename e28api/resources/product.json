@@ -55,7 +55,9 @@
         },
         "categories": {
             "type": "string",
-            "validators": []
+            "validators": [
+                "required"
+            ]
         }
     }
 }
