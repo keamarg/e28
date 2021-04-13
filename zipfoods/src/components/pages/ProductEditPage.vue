@@ -33,7 +33,11 @@
       />
 
       <label for="perishable" class="form-checkbox-label">
-        <input type="checkbox" value="product.perishable" id="perishable" />
+        <input
+          type="checkbox"
+          v-model="updatedProduct.perishable"
+          id="perishable"
+        />
         Perishable?
       </label>
 
@@ -46,7 +50,7 @@
 
       <label for="categories">Choose a category:</label>
       <select v-model="updatedProduct.categories">
-        <option value="">Choose one...</option>
+        <option>{{ product.categories }}</option>
         <option value="produce">Produce</option>
         <option value="snacks">Snacks</option>
         <option value="breakfast">Breakfast</option>
@@ -80,7 +84,7 @@ export default {
         weight: null,
         perishable: false,
         description: "",
-        categories: "",
+        categories: "None",
       },
     };
   },

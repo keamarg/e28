@@ -56,7 +56,7 @@
 
       <label for="categories">Choose a category:</label>
       <select v-model="product.categories">
-        <option value="">Choose one...</option>
+        <option>None</option>
         <option value="produce">Produce</option>
         <option value="snacks">Snacks</option>
         <option value="breakfast">Breakfast</option>
@@ -87,7 +87,7 @@ export default {
         weight: null,
         perishable: false,
         description: "",
-        categories: "",
+        categories: "None",
       },
       testProduct: {
         name: "Candy Heart Grapes",
@@ -113,6 +113,7 @@ export default {
           for (const [key] of Object.entries(this.product)) {
             this.product[key] = "";
           }
+          this.categories = "none";
           this.showConfirmation = true;
         }
       });
