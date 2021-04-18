@@ -1,0 +1,53 @@
+{
+    "permission_level": 0,
+    "fields": {
+        "quiz": {
+            "type": "string",
+            "validators": [
+                "required"
+            ]
+        },
+        "image": {
+            "type": "string",
+            "validators": [
+                "required"
+            ]
+        },
+        "question": {
+            "type": "string",
+            "validators": [
+                "required"
+            ]
+        },
+        "answer1": {
+            "type": "string",
+            "validators": [
+                "required"
+            ]
+        },
+        "answer2": {
+            "type": "string",
+            "validators": [
+                "required"
+            ]
+        },
+        "answer3": {
+            "type": "string",
+            "validators": [
+                "required"
+            ]
+        },
+        "answer4": {
+            "type": "string",
+            "validators": [
+                "required"
+            ]
+        },
+        "correct": {
+            "type": "string",
+            "validators": [
+                "required"
+            ]
+        }
+    }
+}

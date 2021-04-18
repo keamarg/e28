@@ -1,4 +1,10 @@
+body{
+    background-color:#880015;
+    /* background-color:#e93667; */
+
+}
 #app {
+    background-color:#ffcbc8;
     max-width: 1000px;
     width: 100%;
     margin: auto;
@@ -7,9 +13,10 @@
 }
 
 #logo {
-    /* Actual width is 1262; displaying at half-size for retina screens */
-    width: 631px;
-    margin-top: 15px;
+    position:fixed;
+    width: 105px;
+    top: 15px;
+    right: 15px;
 }
 
 nav ul {

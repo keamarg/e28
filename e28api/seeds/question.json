@@ -1,0 +1,64 @@
+{
+    "seeds": [
+        {
+            "quiz": "wine",
+            "image": "https://source.unsplash.com/collection/4477021/400x300",
+            "question": "The most commonly used yeast strain in winemaking is:",
+            "answer1": "Brettanomyces bruxellensis",
+            "answer2": "Saccharomyces cerevisiae",
+            "answer3": "Trichloroanisole",
+            "answer4": "Geotrichum candidum",
+            "correct": "2"
+        },
+        {
+            "quiz": "wine",
+            "image": "https://source.unsplash.com/collection/94514622/400x300",
+            "question": "Which fault smells like nail polish remover?",
+            "answer1": "Cork taint",
+            "answer2": "Oxidation",
+            "answer3": "Hydrogen sulfide",
+            "answer4": "Volatile acidity",
+            "correct": "4"
+        },
+        {
+            "quiz": "wine",
+            "image": "https://source.unsplash.com/collection/1277527/400x300",
+            "question": "Which of the following best describes a Tawny Port?",
+            "answer1": "Pale in color, dry, with notes of fresh almonds and fresh yeast",
+            "answer2": "Orange-brown in color, medium-sweet, with notes of dried fruits and toffee",
+            "answer3": "Deep purple in color, sweet, with notes of plum and fig",
+            "answer4": "Near-black in color, opaque, luscious, with notes of coffee and prunes",
+            "correct": "2"
+        },
+        {
+            "quiz": "wine",
+            "image": "https://source.unsplash.com/collection/3460160/400x300",
+            "question": "What is the range for a medium-alcohol table wine?",
+            "answer1": "Under 11%",
+            "answer2": "11% - 13.9%",
+            "answer3": "14% - 16%",
+            "answer4": "Over 16%",
+            "correct": "2"
+        },
+        {
+            "quiz": "wine",
+            "image": "https://source.unsplash.com/collection/1348554/400x300",
+            "question": "Acidity and alcohol can both have the following effect on your palate:",
+            "answer1": "Dry out your mouth",
+            "answer2": "Make your mouth water",
+            "answer3": "Sharp or tingly sensation",
+            "answer4": "All of the above",
+            "correct": "3"
+        },
+        {
+            "quiz": "toys",
+            "image": "https://source.unsplash.com/collection/1348554/400x300",
+            "question": "Acidity and alcohol can both have the following effect on your palate:",
+            "answer1": "Dry out your mouth",
+            "answer2": "Make your mouth water",
+            "answer3": "Sharp or tingly sensation",
+            "answer4": "All of the above",
+            "correct": "3"
+        }
+    ]
+}

@@ -118,6 +118,7 @@ export default {
         }
       });
     },
+
     addTestProduct() {
       this.product.name = this.testProduct.name;
       this.product.sku = this.testProduct.sku;

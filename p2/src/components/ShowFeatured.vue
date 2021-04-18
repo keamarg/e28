@@ -1,18 +1,10 @@
 <template>
-  <div id="home-page">
-    <p>
-      "Quizcreator" is a platform for creating your own quizzes. There is a
-      premade quiz about wine, but create whatever you like!
-    </p>
+  <div id="show-featured">
     <h2>Categories</h2>
-
     <ul class="clean-list">
       <div v-for="(category, id) in categories" v-bind:key="id">
         <router-link to="/quiz"
-          ><button
-            v-bind:class="category"
-            v-on:click="$emit('update-quiz', category)"
-          >
+          ><button v-bind:class="category" v-on:click="updateQuiz">
             {{ category }} quiz
           </button></router-link
         >
@@ -22,16 +14,22 @@
 </template>
 
 <script>
-// import { axios } from "@/common/app.js";
-
 export default {
   props: {
+    category: {
+      type: String,
+    },
     questions: {
       type: Array,
       default: null,
     },
   },
-  methods: {},
+  methods: {
+    updateQuiz() {
+      console.log("pingping");
+      this.$emit("update-quiz");
+    },
+  },
   computed: {
     categories() {
       let categories = this.questions.map((question) =>
@@ -46,5 +44,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+#show-featured {
+  background-color: var(--light-blue);
+  border-radius: var(--radius);
+  padding: 10px;
+}
 </style>

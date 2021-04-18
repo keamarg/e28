@@ -1,6 +1,6 @@
 <template>
-  <div id="research-page">
-    <p>"Research page"</p>
+  <div id="create-page">
+    <p>"Create page"</p>
   </div>
 </template>
 

@@ -60,6 +60,7 @@
     <button v-on:click="updateProduct">Update product</button>
     <div id="addsucceed" v-if="showConfirmation">Your product was updated</div>
     <div id="addfail" v-if="!showConfirmation">{{ errors }}</div>
+    <button v-on:click="deleteProduct">Delete product</button>
   </div>
 </template>
 
@@ -104,6 +105,18 @@ export default {
             this.showConfirmation = true;
           }
         });
+    },
+    deleteProduct() {
+      axios.delete("/product/" + this.product.id).then((response) => {
+        if (response.data.errors) {
+          console.log("nope");
+          this.errors = Object.values(response.data.errors)[0][0];
+          this.showConfirmation = false;
+        } else {
+          this.$emit("update-products");
+          this.showConfirmation = true;
+        }
+      });
     },
   },
 };

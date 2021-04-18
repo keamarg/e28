@@ -1,6 +1,8 @@
 <template>
   <div id="products-page">
     <h2>Products</h2>
+    <button v-on:click="deleteAllProducts">Delete all products</button>
+
     <div id="products">
       <router-link
         v-for="product in products"
@@ -18,6 +20,7 @@
 
 <script>
 import ShowProduct from "@/components/ShowProduct.vue";
+import { axios } from "@/common/app.js";
 
 export default {
   components: { "show-product": ShowProduct },
@@ -29,6 +32,23 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    deleteAllProducts() {
+      this.products.forEach(this.deleteProduct);
+    },
+    deleteProduct(item, index) {
+      axios.delete("/product/" + index).then((response) => {
+        if (response.data.errors) {
+          console.log("nope");
+          this.errors = Object.values(response.data.errors)[0][0];
+          this.showConfirmation = false;
+        } else {
+          this.$emit("update-products");
+          this.showConfirmation = true;
+        }
+      });
+    },
   },
 };
 </script>
