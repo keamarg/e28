@@ -4,49 +4,65 @@
         "quiz": {
             "type": "string",
             "validators": [
-                "required"
+                "required",
+                "min:3",
+                "max:12"
             ]
         },
         "image": {
             "type": "string",
             "validators": [
-                "required"
+                "required",
+                "min:3",
+                "max:100"
             ]
         },
         "question": {
             "type": "string",
             "validators": [
-                "required"
+                "required",
+                "min:3",
+                "max:100"
             ]
         },
         "answer1": {
             "type": "string",
             "validators": [
-                "required"
+                "required",
+                "min:3",
+                "max:50"
             ]
         },
         "answer2": {
             "type": "string",
             "validators": [
-                "required"
+                "required",
+                "min:3",
+                "max:50"
             ]
         },
         "answer3": {
             "type": "string",
             "validators": [
-                "required"
+                "required",
+                "min:3",
+                "max:50"
             ]
         },
         "answer4": {
             "type": "string",
             "validators": [
-                "required"
+                "required",
+                "min:3",
+                "max:50"
             ]
         },
         "correct": {
             "type": "string",
             "validators": [
-                "required"
+                "required",
+                "min:1",
+                "max:1"
             ]
         }
     }

@@ -15,7 +15,9 @@
     </nav>
     <router-view
       v-bind:questions="questions"
+      v-bind:quiz="quiz"
       v-on:update-quiz="updateQuiz"
+      v-on:update-questions="loadQuestions"
     ></router-view>
   </div>
 </template>
@@ -73,14 +75,6 @@ export default {
         delete value.correct;
       });
     },
-    // loadImages() {
-    //   axios.get(
-    //     "/collections/1277527/photos/&client_id=3PuWw0eAXi7CNWehCyheXrZjoWy1GsvJ9For49XeWj0"
-    //   );
-    //   // .then((response) => {
-    //   //   this.images = response.data.image;
-    //   // });
-    // },
   },
 };
 </script>

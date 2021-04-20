@@ -1,25 +1,29 @@
 <template>
   <div id="quiz-page">
-    <p>"Quiz page"</p>
+    <h1>{{ quiz }} quiz</h1>
+    <show-question
+      v-if="question"
+      v-on:update-score="updateScore"
+      v-bind:question="question"
+      v-bind:feedback="feedback"
+    ></show-question>
+    <p v-else-if="quiz == ''">Pick a quiz on the home tab</p>
+    <div v-else>
+      <h2 class="incorrect">Game over</h2>
+      <img alt="logo" src="https://source.unsplash.com/400x300/?quiz" /><br />
+      <router-link to="/">Back to selection page</router-link>
+    </div>
+    <p class="feedback" v-if="!quiz == ''">Score:{{ this.score }}</p>
+    <div v-if="feedback" class="feedback">
+      <p v-if="correct" v-bind:class="{ correct }">
+        Correct, <i>"{{ this.answer }}"</i> is {{ this.correct }} well done!
+      </p>
+      <p v-else class="{ incorrect }">
+        Sorry, <i>"{{ this.answer }}"</i> is {{ this.correct }}.
+      </p>
+      <button class="btn" v-on:click="nextQuestion">Next question</button>
+    </div>
   </div>
-
-  <show-question
-    v-if="question"
-    v-on:update-score="updateScore"
-    v-bind:question="question"
-    v-bind:feedback="feedback"
-  ></show-question>
-  <p v-else>Game over</p>
-  <div v-if="feedback">
-    <p v-if="correct">
-      Correct, <i>"{{ this.answer }}"</i> is {{ this.correct }} well done!
-    </p>
-    <p v-else>
-      Sorry, <i>"{{ this.answer }}"</i> is {{ this.correct }}.
-    </p>
-    <button v-on:click="nextQuestion">Next question</button>
-  </div>
-  <p>Score:{{ this.score }}</p>
 </template>
 
 <script>
@@ -31,9 +35,14 @@ export default {
       type: Array,
       default: null,
     },
+    quiz: {
+      type: String,
+    },
   },
   data() {
     return {
+      specificQuestions: [],
+      // question: null,
       correct: null,
       answer: "",
       score: "0",
@@ -41,16 +50,28 @@ export default {
       feedback: false,
     };
   },
+  mounted() {
+    this.createQuestions(this.quiz);
+  },
   computed: {
     question() {
-      if (this.round == this.questions.length) {
+      if (this.round == this.specificQuestions.length) {
         return;
       } else {
-        return this.questions[this.round]; //this.questions[Math.floor(Math.random() * this.questions.length)];
+        return this.specificQuestions[this.round]; //this.questions[Math.floor(Math.random() * this.questions.length)];
       }
     },
   },
   methods: {
+    createQuestions(quiz) {
+      let specificQuestions = [];
+      this.questions.forEach(function (value) {
+        if (value.quiz == quiz) {
+          specificQuestions.push(value);
+        }
+      });
+      this.specificQuestions = specificQuestions;
+    },
     updateScore(answer) {
       this.feedback = true;
       this.answer = answer[0];
@@ -67,5 +88,10 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
+.feedback {
+  font-size: 2rem;
+  margin: 5px 0 10px 0;
+  vertical-align: baseline;
+}
 </style>

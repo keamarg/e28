@@ -1,15 +1,21 @@
 <template>
   <div class="show-question">
-    <img class="thumb" v-bind:src="imgSrc" />
-    <div class="question">{{ question.question }}</div>
+    <div class="question">
+      {{ question.question }}
+    </div>
     <div
-      class="question"
-      v-for="(answer, index) in question.answers"
-      v-bind:key="index"
+      class="questions"
+      v-bind:style="{ backgroundImage: 'url(' + imgSrc + ')' }"
     >
-      <button v-if="!feedback" v-on:click="testAnswer(index)">
-        {{ index + 1 }}: {{ question.answers[index][0] }}
-      </button>
+      <div
+        class="question"
+        v-for="(answer, index) in question.answers"
+        v-bind:key="index"
+      >
+        <button v-if="!feedback" v-on:click="testAnswer(index)" class="btn">
+          {{ question.answers[index][0] }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -22,6 +28,9 @@ export default {
     },
     feedback: {
       type: Boolean,
+    },
+    quiz: {
+      type: String,
     },
   },
   data() {
@@ -51,17 +60,8 @@ export default {
 </script>
 
 <style scoped>
-.show-product {
-  border: 1px solid var(--silver);
-  text-align: center;
-  padding: 15px;
-  margin: 15px;
-  width: 30%;
-  min-width: 300px;
-}
-
 .question {
-  font-size: 1rem;
+  font-size: 2.5rem;
   margin: 5px 0 10px 0;
   vertical-align: baseline;
 }
