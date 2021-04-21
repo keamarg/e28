@@ -1,24 +1,25 @@
-# p2
+Project 2
+By: Martin Gundtoft
+Production URL: http://e28p2.hesdev.com/
 
-## Project setup
-```
-npm install
-```
+Pages summary
+Home: Page for selecting and deleting quizzes
+Quiz: Page for taking a quiz
+Create: Page for creating a new quiz
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+SFC summary
+ShowQuestion.vue
+QuizPage.vue
+HomePage.vue
+CreatePage.vue
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Server interaction
+Creating new questions/quizzes
+Retrieving seeded questions from the server
+Deleting 
 
-### Lints and fixes files
-```
-npm run lint
-```
+Outside resources
+API for images: https://unsplash.com/documentation
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Notes for instructor
+There are some unused components, as I am still working on some features, but just ignore the ones that are not imported.
