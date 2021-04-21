@@ -48,7 +48,10 @@ export default {
     updateQuiz(category) {
       this.quiz = category;
     },
-    loadQuestions() {
+    loadQuestions(category) {
+      if (category) {
+        console.log("Deleted: " + category + " quiz");
+      }
       axios.get("question").then((response) => {
         this.questions = response.data.question;
         this.remodelData();

@@ -81,7 +81,7 @@ header {
 
 #logo {
     position:fixed;
-    width: 105px;
+    width: 5rem;
     top: 15px;
     right: 15px;
 }
@@ -218,7 +218,7 @@ label.form-checkbox-label {
     padding: 10px;
     color: white;
     cursor: pointer;
-    width:300px;
+    width:20rem;
 }
 .deleteBtn{
     border:none;
@@ -231,8 +231,7 @@ label.form-checkbox-label {
 
 .questions{
     background-repeat: no-repeat;
-    width:400px;
-    height:300px;
+    width:25rem;
     border-radius: 5px;
     padding:30px;
     margin: 0 auto;
@@ -269,4 +268,5 @@ input[type=radio] {
 
 img{
     border-radius: 5px;
+    width:25rem;
 }

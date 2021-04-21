@@ -7,21 +7,14 @@
     </p>
     <ul class="clean-list">
       <div v-for="(category, id) in categories" v-bind:key="id">
-        <router-link to="/quiz"
-          ><button
-            class="btn"
-            v-bind:class="category"
-            v-on:click="$emit('update-quiz', category)"
-          >
-            {{ category }} quiz
-          </button></router-link
-        ><br /><button
-          v-bind:class="category"
-          class="deleteBtn"
-          v-on:click="deleteQuiz(category)"
+        <show-quiz
+          v-on:update-quiz="updateQuiz"
+          v-on:update-questions="updateQuestions"
+          v-bind:removeCategory="removeCategory"
+          v-bind:category="category"
+          v-bind:questions="questions"
         >
-          Delete {{ category }} quiz
-        </button>
+        </show-quiz>
       </div>
     </ul>
     <img alt="logo" src="https://source.unsplash.com/400x300/?quiz" />
@@ -29,9 +22,10 @@
 </template>
 
 <script>
-import { axios } from "@/common/app.js";
+import ShowQuestion from "@/components/ShowQuiz.vue";
 
 export default {
+  components: { "show-quiz": ShowQuestion },
   props: {
     questions: {
       type: Array,
@@ -40,28 +34,16 @@ export default {
   },
   data() {
     return {
-      errors: null,
-      removeCategory: " ",
+      removeCategory: false,
     };
   },
   methods: {
-    deleteQuiz(quiz) {
-      let quizQuestion = "";
-      this.questions.forEach((value) => {
-        if (value.quiz == quiz) {
-          quizQuestion = value;
-          axios.delete("/question/" + quizQuestion.id).then((response) => {
-            if (response.data.errors) {
-              this.errors = Object.values(response.data.errors)[0][0];
-              this.showConfirmation = false;
-            } else {
-              this.$emit("update-products");
-              this.removeCategory = quizQuestion.quiz;
-              console.log(this.removeCategory);
-            }
-          });
-        }
-      });
+    updateQuiz(category) {
+      this.$emit("update-quiz", category);
+    },
+    updateQuestions(category) {
+      this.removeCategory = false;
+      this.$emit("update-questions", category);
     },
   },
   computed: {
