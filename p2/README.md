@@ -16,7 +16,7 @@
 ## Server interaction
 + Creating new questions/quizzes
 + Retrieving seeded questions from the server
-+ Deleting 
++ Deleting quizzes
 
 ## Outside resources
 + API for images: https://unsplash.com/documentation
