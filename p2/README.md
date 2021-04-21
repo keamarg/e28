@@ -21,5 +21,5 @@
 ##Outside resources
 +API for images: https://unsplash.com/documentation
 
-#Notes for instructor
+##Notes for instructor
 +There are some unused components, as I am still working on some features, but just ignore the ones that are not imported.
