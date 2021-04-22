@@ -9,6 +9,12 @@
         v-bind:product="product"
         v-bind:detailed="true"
       ></show-product>
+      <button v-on:click="addToCart">Add to cart</button>
+      <transition name="fade">
+        <div v-if="addConfirmation" class="alert">
+          {{ product.name }} was added to your cart!
+        </div>
+      </transition>
     </div>
     <!-- My first solution -->
     <!-- <template v-for="product in products">
@@ -27,6 +33,7 @@
 
 <script>
 import ShowProduct from "@/components/ShowProduct.vue";
+import { cart, store } from "@/common/app.js";
 
 export default {
   components: { "show-product": ShowProduct },
@@ -40,7 +47,9 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      addConfirmation: false,
+    };
   },
   computed: {
     product() {
@@ -50,6 +59,18 @@ export default {
     },
     productNotFound() {
       return this.product == null;
+    },
+  },
+  methods: {
+    addToCart() {
+      cart.add(this.product.id);
+
+      store.cartCount = cart.count();
+
+      this.addConfirmation = true;
+      setTimeout(() => {
+        this.addConfirmation = false;
+      }, 3000);
     },
   },
 };

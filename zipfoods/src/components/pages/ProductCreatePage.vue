@@ -65,9 +65,13 @@
     </div>
 
     <button v-on:click="addProduct">Add Product</button>
-    <div id="addsucceed" v-if="showConfirmation">Your product was added</div>
+    <transition name="fade">
+      <div id="addsucceed" v-if="showConfirmation">Your product was added</div>
+    </transition>
+
     <div id="addfail" v-if="!showConfirmation">{{ errors }}</div>
-    <button v-on:click="addTestProduct">Add Test Product</button>
+
+    <button v-on:click="addTestProduct">Fill Test Data</button>
   </div>
 </template>
 
@@ -115,6 +119,7 @@ export default {
           }
           this.categories = "none";
           this.showConfirmation = true;
+          setTimeout(() => (this.showConfirmation = false), 3000);
         }
       });
     },

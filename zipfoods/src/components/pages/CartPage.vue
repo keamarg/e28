@@ -1,0 +1,54 @@
+<template>
+  <div id="cart-page">
+    <h1>Your Cart</h1>
+
+    <div v-if="items.length == 0">No items</div>
+
+    <ul class="clean-list" v-if="productsLoaded">
+      <li v-for="item in items" v-bind:key="item.id">
+        {{ item.quantity }} x {{ getProductDetails(item.id).name }}
+        <button v-on:click="removeFromCart(item.id)">Remove</button>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import { cart, store } from "@/common/app.js";
+
+export default {
+  props: ["products"],
+  data() {
+    return {
+      items: [],
+    };
+  },
+  computed: {
+    productsLoaded() {
+      return this.products.length > 0;
+    },
+  },
+  mounted() {
+    this.items = cart.getItems();
+  },
+  methods: {
+    getProductDetails(id) {
+      return this.products.filter((product) => {
+        return product.id == id;
+      }, id)[0];
+    },
+    removeFromCart(id) {
+      cart.remove(id);
+      store.cartCount = cart.count();
+    },
+  },
+};
+</script>
+
+<style scoped>
+button {
+  font-size: 1.2rem;
+  padding: 6px;
+  background-color: var(--red);
+}
+</style>

@@ -9,6 +9,8 @@ import CategoriesPage from '@/components/pages/CategoriesPage.vue';
 import ProductPage from '@/components/pages/ProductPage.vue';
 import ProductCreatePage from '@/components/pages/ProductCreatePage.vue';
 import ProductEditPage from '@/components/pages/ProductEditPage.vue';
+import CartPage from '@/components/pages/CartPage.vue';
+
 
 
 const router = createRouter({
@@ -20,7 +22,7 @@ const router = createRouter({
         { path: "/categories", component: CategoriesPage },
         { path: "/product/new", component: ProductCreatePage },
         { path: "/product/edit", component: ProductEditPage },
-
+        { path: "/cart", component: CartPage }
     ]
 });
 createApp(App).use(router).mount('#app')
