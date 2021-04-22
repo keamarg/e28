@@ -2,7 +2,7 @@
   <div id="question-page">
     <div v-if="questionNotFound">
       <p>Question {{ id }} not found.</p>
-      <router-link to="/questions">Back to questions page</router-link>
+      <router-link to="/">Back to home page</router-link>
     </div>
     <div v-else-if="question">
       <show-question

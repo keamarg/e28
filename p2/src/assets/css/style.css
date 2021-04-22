@@ -231,6 +231,7 @@ label.form-checkbox-label {
 
 .questions{
     background-repeat: no-repeat;
+    background-size: cover;
     width:25rem;
     border-radius: 5px;
     padding:30px;

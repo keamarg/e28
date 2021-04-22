@@ -7,7 +7,18 @@
       v-bind:question="question"
       v-bind:feedback="feedback"
     ></show-question>
-    <p v-else-if="quiz == ''">Pick a quiz on the home tab</p>
+    <div id="questions" v-else-if="quiz == ''">
+      <h3>Pick a quiz on the <router-link to="/">home</router-link> tab.</h3>
+      The last added questions are:
+      <ul>
+        <li v-for="question in questions" v-bind:key="question.id">
+          <span v-if="question.id > questions.length - 3">
+            <div id="category">Category - {{ question.quiz }}</div>
+            <span>{{ question.question }}</span></span
+          >
+        </li>
+      </ul>
+    </div>
     <div v-else>
       <h2 class="incorrect">Game over</h2>
       <img alt="logo" src="https://source.unsplash.com/400x300/?quiz" /><br />
@@ -93,5 +104,24 @@ export default {
   font-size: 2rem;
   margin: 5px 0 10px 0;
   vertical-align: baseline;
+}
+
+li {
+  list-style-type: none;
+  margin-top: 1rem;
+}
+ul {
+  padding-left: 0rem;
+}
+#questions {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 2rem;
+  line-height: 2.5 rem;
+  text-align: left;
+}
+#category {
+  font-size: 2rem;
+  font-weight: bold;
 }
 </style>

@@ -9,6 +9,7 @@
 
 ## SFC summary
 + ShowQuestion.vue
++ QuestionPage.vue
 + QuizPage.vue
 + HomePage.vue
 + CreatePage.vue
@@ -22,4 +23,4 @@
 + API for images: https://unsplash.com/documentation
 
 ## Notes for instructor
-+ There are some unused components, as I am still working on some features, but just ignore the ones that are not imported.
++ I did a bit of "spring cleaning" after deadline. Mainly more responsive css and removal of unused components, but also better delete functionality.

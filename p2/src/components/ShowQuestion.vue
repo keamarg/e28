@@ -1,4 +1,9 @@
 <template>
+  <div v-if="detailed">
+    <p>This is just a preview of the question, not the quiz.</p>
+    <br />
+    <router-link to="/">Back to home page</router-link>
+  </div>
   <div class="show-question">
     <div class="question">
       {{ question.question }}
@@ -31,6 +36,9 @@ export default {
     },
     quiz: {
       type: String,
+    },
+    detailed: {
+      type: Boolean,
     },
   },
   data() {
