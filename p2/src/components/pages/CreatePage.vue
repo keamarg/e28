@@ -63,7 +63,7 @@
       <div id="addsucceed" v-if="showConfirmation">Your question was added</div>
       <div id="addfail" v-if="!showConfirmation">{{ errors }}</div>
       <button class="btn" v-on:click="addTestQuestion">
-        Add Test Question
+        Fill with dummy data
       </button>
     </div>
   </div>
