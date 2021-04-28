@@ -8,49 +8,49 @@
         type="text"
         id="quiz"
         v-model="question.quiz"
-        placeholder="Required 3-12 letters"
+        placeholder="Required 1-12 letters"
       />
       <label for="image">Image keyword</label>
       <input
         type="text"
         id="image"
         v-model="question.image"
-        placeholder="Required 3-12 letters"
+        placeholder="Required 1-12 letters (keyword for unsplash image)"
       />
       <label for="question">Question</label>
       <input
         type="text"
         id="question"
         v-model="question.question"
-        placeholder="Required 3-100 letters"
+        placeholder="Required 1-100 letters"
       />
       <label for="answer1">Answer 1</label>
       <input
         type="text"
         id="answer1"
         v-model="question.answer1"
-        placeholder="Required 3-50 letters"
+        placeholder="Required 1-50 letters"
       />
       <label for="answer2">Answer 2</label>
       <input
         type="text"
         id="answer2"
         v-model="question.answer2"
-        placeholder="Required 3-50 letters"
+        placeholder="Required 1-50 letters"
       />
       <label for="answer3">Answer 3</label>
       <input
         type="text"
         id="answer3"
         v-model="question.answer3"
-        placeholder="Required 3-50 letters"
+        placeholder="Required 1-50 letters"
       />
       <label for="answer4">Answer 4</label>
       <input
         type="text"
         id="answer4"
         v-model="question.answer4"
-        placeholder="Required 3-50 letters"
+        placeholder="Required 1-50 letters"
       />
       <label for="correct">Correct answer?</label>
       <input
