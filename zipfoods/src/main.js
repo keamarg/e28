@@ -3,6 +3,7 @@ import App from './App.vue'
 
 import { createRouter, createWebHistory } from 'vue-router';
 
+import { store } from '@/common/store.js'
 import HomePage from '@/components/pages/HomePage.vue';
 import ProductsPage from '@/components/pages/ProductsPage.vue';
 import CategoriesPage from '@/components/pages/CategoriesPage.vue';
@@ -25,4 +26,4 @@ const router = createRouter({
         { path: "/cart", component: CartPage }
     ]
 });
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).use(store).mount('#app')

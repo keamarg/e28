@@ -15,10 +15,6 @@ export default {
     category: {
       type: String,
     },
-    products: {
-      type: Array,
-      default: null,
-    },
   },
   data() {
     return {};
@@ -28,6 +24,9 @@ export default {
       return this.products.filter((product) => {
         return product.categories.includes(this.category);
       }, this.category);
+    },
+    products() {
+      return this.$store.state.products;
     },
   },
 };

@@ -13,7 +13,7 @@
             v-bind:key="link"
             v-bind:to="paths[link]"
           >
-            <span v-if="link == 'cart'">({{ store.cartCount }})</span>
+            <span v-if="link == 'cart'">({{ cartCount }})</span>
 
             {{ link }}</router-link
           >
@@ -21,21 +21,16 @@
       </ul>
     </nav>
 
-    <router-view
-      v-bind:products="products"
-      v-on:update-products="loadProducts"
-    ></router-view>
+    <router-view v-on:update-products="loadProducts"></router-view>
   </div>
 </template>
 
 <script>
-import { axios, store } from "@/common/app.js";
+import { cart } from "@/common/app.js";
 export default {
   name: "App",
   data() {
     return {
-      store: store,
-      products: [],
       /* Store links in an array to maintain order */
       links: ["home", "products", "categories", "new", "cart"],
 
@@ -49,14 +44,21 @@ export default {
       },
     };
   },
+  computed: {
+    cartCount() {
+      return this.$store.state.cartCount;
+    },
+    products() {
+      return this.$store.state.products;
+    },
+  },
   mounted() {
     this.loadProducts();
+    this.$store.commit("setCartCount", cart.count());
   },
   methods: {
     loadProducts() {
-      axios.get("product").then((response) => {
-        this.products = response.data.product;
-      });
+      this.$store.dispatch("fetchProducts");
     },
   },
 };

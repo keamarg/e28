@@ -33,17 +33,13 @@
 
 <script>
 import ShowProduct from "@/components/ShowProduct.vue";
-import { cart, store } from "@/common/app.js";
+import { cart } from "@/common/app.js";
 
 export default {
   components: { "show-product": ShowProduct },
   props: {
     id: {
       type: String,
-    },
-    products: {
-      type: Array,
-      default: null,
     },
   },
   data() {
@@ -53,19 +49,20 @@ export default {
   },
   computed: {
     product() {
-      return this.products.filter((product) => {
-        return product.id == this.id;
-      }, this.id)[0];
+      return this.$store.getters.getProductById(this.id);
     },
     productNotFound() {
       return this.product == null;
+    },
+    products() {
+      return this.$store.state.products;
     },
   },
   methods: {
     addToCart() {
       cart.add(this.product.id);
 
-      store.cartCount = cart.count();
+      this.$store.commit("setCartCount", cart.count());
 
       this.addConfirmation = true;
       setTimeout(() => {
