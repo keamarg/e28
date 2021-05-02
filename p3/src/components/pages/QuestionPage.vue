@@ -22,22 +22,22 @@ export default {
     id: {
       type: String,
     },
-    questions: {
-      type: Array,
-      default: null,
-    },
   },
   data() {
     return {};
   },
   computed: {
     question() {
-      return this.questions.filter((question) => {
-        return question.id == this.id;
-      }, this.id)[0];
+      return this.$store.getters.getQuestionById(this.id);
     },
     questionNotFound() {
       return this.question == null;
+    },
+    questions() {
+      return this.$store.state.questions;
+    },
+    category() {
+      return this.$store.state.category;
     },
   },
 };

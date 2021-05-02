@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       /* Store links in an array to maintain order */
-      links: ["home", "products", "categories", "new", "cart"],
+      links: ["home", "products", "categories", "new", "account", "cart"],
 
       /* Map links to the appropriate component */
       paths: {
@@ -40,6 +40,7 @@ export default {
         products: "/products",
         categories: "/categories",
         new: "/product/new",
+        account: "/account",
         cart: "/cart",
       },
     };
@@ -55,6 +56,7 @@ export default {
   mounted() {
     this.loadProducts();
     this.$store.commit("setCartCount", cart.count());
+    this.$store.dispatch("authUser");
   },
   methods: {
     loadProducts() {

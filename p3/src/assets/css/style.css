@@ -208,6 +208,10 @@ label.form-checkbox-label {
 
 }
 
+.loginForm{
+    margin: 0 auto;
+    width:30rem;
+}
 
 .btn {
     background-color: var(--blue);
@@ -229,6 +233,11 @@ label.form-checkbox-label {
     background-color:whitesmoke;
 }
 
+.logoutBtn{
+    width:10rem;
+    color:#FFDC00
+}
+
 .questions{
     background-repeat: no-repeat;
     background-size: cover;
@@ -245,6 +254,8 @@ label.form-checkbox-label {
 .incorrect{
     color:red;
 }
+
+
 
 button:hover {
     background-color: var(--dark-blue);

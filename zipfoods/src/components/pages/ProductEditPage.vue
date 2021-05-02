@@ -58,9 +58,14 @@
       </select>
     </div>
     <button v-on:click="updateProduct">Update product</button>
-    <div id="addsucceed" v-if="showConfirmation">Your product was updated</div>
-    <div id="addfail" v-if="!showConfirmation">{{ errors }}</div>
+    <div id="addsucceed" v-if="showUpdateConfirmation">
+      Your product was updated
+    </div>
+    <div id="addfail" v-if="!showUpdateConfirmation">{{ errors }}</div>
     <button v-on:click="deleteProduct">Delete product</button>
+    <div id="addsucceed" v-if="showDeleteConfirmation">
+      Your product was deleted
+    </div>
   </div>
 </template>
 
@@ -75,7 +80,8 @@ export default {
   },
   data() {
     return {
-      showConfirmation: false,
+      showUpdateConfirmation: false,
+      showDeleteConfirmation: false,
       errors: null,
       updatedProduct: {
         name: "",
@@ -101,8 +107,12 @@ export default {
             this.errors = Object.values(response.data.errors)[0][0];
             this.showConfirmation = false;
           } else {
-            this.$emit("update-products");
-            this.showConfirmation = true;
+            this.$store.dispatch("fetchProducts");
+            this.showUpdateConfirmation = true;
+            setTimeout(() => {
+              this.$store.dispatch("fetchProducts");
+              this.$router.push("/products");
+            }, 2000);
           }
         });
     },
@@ -113,8 +123,11 @@ export default {
           this.errors = Object.values(response.data.errors)[0][0];
           this.showConfirmation = false;
         } else {
-          this.$emit("update-products");
-          this.showConfirmation = true;
+          this.showDeleteConfirmation = true;
+          setTimeout(() => {
+            this.$store.dispatch("fetchProducts");
+            this.$router.push("/products");
+          }, 2000);
         }
       });
     },

@@ -5,7 +5,11 @@
         <button class="btn" v-on:click="$emit('update-quiz', category)">
           {{ category }} quiz
         </button></router-link
-      ><br /><button class="deleteBtn" v-on:click="deleteQuiz(category)">
+      ><br /><button
+        v-if="user"
+        class="deleteBtn"
+        v-on:click="deleteQuiz(category)"
+      >
         Delete {{ category }} quiz
       </button>
     </div>
@@ -36,7 +40,7 @@ export default {
   methods: {
     deleteQuiz(quiz) {
       let quizQuestion = "";
-      this.questions.forEach((value) => {
+      this.$store.state.questions.forEach((value) => {
         if (value.quiz == quiz) {
           quizQuestion = value;
           axios.delete("/question/" + quizQuestion.id).then((response) => {
@@ -60,6 +64,9 @@ export default {
 
       // Return unique, sorted categories
       return [...new Set(mergedCategories)].sort();
+    },
+    user() {
+      return this.$store.state.user;
     },
   },
 };

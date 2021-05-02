@@ -41,6 +41,8 @@ export default {
       type: Boolean,
     },
   },
+  emits: ["update-score"],
+
   data() {
     return {
       guessed: false,

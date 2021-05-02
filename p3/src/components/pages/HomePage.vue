@@ -12,7 +12,6 @@
           v-on:update-questions="updateQuestions"
           v-bind:removeCategory="removeCategory"
           v-bind:category="category"
-          v-bind:questions="questions"
         >
         </show-quiz>
       </div>
@@ -26,12 +25,7 @@ import ShowQuestion from "@/components/ShowQuiz.vue";
 
 export default {
   components: { "show-quiz": ShowQuestion },
-  props: {
-    questions: {
-      type: Array,
-      default: null,
-    },
-  },
+
   data() {
     return {
       removeCategory: false,
@@ -55,6 +49,9 @@ export default {
 
       // Return unique, sorted categories
       return [...new Set(mergedCategories)].sort();
+    },
+    questions() {
+      return this.$store.state.questions;
     },
   },
 };

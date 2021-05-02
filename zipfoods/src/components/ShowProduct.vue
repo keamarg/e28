@@ -64,6 +64,7 @@ export default {
   margin: 15px;
   width: 30%;
   min-width: 300px;
+  margin: 0 auto;
 }
 
 .name {

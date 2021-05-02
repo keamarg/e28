@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { axios } from "@/common/app.js";
+// import { axios } from "@/common/app.js";
 // import { questions } from "@/common/questions.js";
 
 export default {
@@ -31,52 +31,32 @@ export default {
   data() {
     return {
       quiz: "",
-      questions: [],
+      // questions: [],
       images: [],
-      links: ["home", "quiz", "create"],
+      links: ["home", "quiz", "create", "account"],
       paths: {
         home: "/",
         quiz: "/quiz",
         create: "/create",
+        account: "/account",
       },
     };
   },
+  computed: {
+    questions() {
+      return this.$store.state.questions;
+    },
+  },
   mounted() {
     this.loadQuestions();
+    this.$store.dispatch("authUser");
   },
   methods: {
     updateQuiz(category) {
       this.quiz = category;
     },
-    loadQuestions(category) {
-      if (category) {
-        console.log("Deleted: " + category + " quiz");
-      }
-      axios.get("question").then((response) => {
-        this.questions = response.data.question;
-        this.remodelData();
-      });
-    },
-    remodelData() {
-      console.log("remodelling data");
-      this.questions.forEach(function (value) {
-        value.answers = [
-          [value.answer1],
-          [value.answer2],
-          [value.answer3],
-          [value.answer4],
-        ];
-        value.answers.forEach(function (val, i) {
-          if (i + 1 == value.correct) {
-            value.answers[i][1] = "true";
-          }
-        });
-        delete value.answer1;
-        delete value.answer2;
-        delete value.answer3;
-        delete value.answer4;
-        delete value.correct;
-      });
+    loadQuestions() {
+      this.$store.dispatch("fetchQuestions");
     },
   },
 };
