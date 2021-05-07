@@ -1,5 +1,5 @@
-import App from './App.vue'
 import { createApp } from 'vue'
+import App from './App.vue'
 import { router } from '@/common/router.js'
 import { store } from '@/common/store.js'
 

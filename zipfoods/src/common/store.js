@@ -12,7 +12,6 @@ export const store = createStore({
             cartCount: 0,
             products: [],
             user: null,
-            favorites: [],
         }
     },
     //Methods used to alter the state of our store
@@ -26,9 +25,6 @@ export const store = createStore({
         setUser(state, payload) {
             state.user = payload;
         },
-        setFavorites(state, payload) {
-            state.favorites = payload;
-        },
     },
     //Methods that can contain async. code
     //Can not directly alter the state - has to change state
@@ -40,10 +36,16 @@ export const store = createStore({
             });
         },
         authUser(context) {
-            axios.post('auth').then((response) => {
-                if (response.data.authenticated) {
-                    context.commit('setUser', response.data.user);
-                }
+            return new Promise((resolve) => {
+                axios.post('auth').then((response) => {
+                    if (response.data.authenticated) {
+                        context.commit('setUser', response.data.user);
+                    } else {
+                        context.commit('setUser', false);
+                    }
+
+                    resolve();
+                });
             });
         },
     },

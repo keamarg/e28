@@ -9,59 +9,106 @@
         id="quiz"
         v-model="question.quiz"
         placeholder="Required 1-12 letters"
+        v-on:input="validate"
       />
+      <error-field
+        v-if="errors && 'quiz' in errors"
+        v-bind:errors="errors.quiz"
+      ></error-field>
       <label for="image">Image keyword</label>
       <input
         type="text"
         id="image"
         v-model="question.image"
         placeholder="Required 1-12 letters (keyword for unsplash image)"
+        v-on:blur="validate"
       />
+      <error-field
+        v-if="errors && 'image' in errors"
+        v-bind:errors="errors.image"
+      >
+      </error-field>
+
       <label for="question">Question</label>
       <input
         type="text"
         id="question"
         v-model="question.question"
         placeholder="Required 1-100 letters"
+        v-on:blur="validate"
       />
+      <error-field
+        v-if="errors && 'question' in errors"
+        v-bind:errors="errors.question"
+      ></error-field>
       <label for="answer1">Answer 1</label>
       <input
         type="text"
         id="answer1"
         v-model="question.answer1"
         placeholder="Required 1-50 letters"
+        v-on:blur="validate"
       />
+      <error-field
+        v-if="errors && 'answer1' in errors"
+        v-bind:errors="errors.answer1"
+      ></error-field>
       <label for="answer2">Answer 2</label>
       <input
         type="text"
         id="answer2"
         v-model="question.answer2"
         placeholder="Required 1-50 letters"
+        v-on:blur="validate"
       />
+      <error-field
+        v-if="errors && 'answer2' in errors"
+        v-bind:errors="errors.answer2"
+      ></error-field>
       <label for="answer3">Answer 3</label>
       <input
         type="text"
         id="answer3"
         v-model="question.answer3"
         placeholder="Required 1-50 letters"
+        v-on:blur="validate"
       />
+      <error-field
+        v-if="errors && 'answer3' in errors"
+        v-bind:errors="errors.answer3"
+      ></error-field>
       <label for="answer4">Answer 4</label>
       <input
         type="text"
         id="answer4"
         v-model="question.answer4"
         placeholder="Required 1-50 letters"
+        v-on:blur="validate"
       />
+      <error-field
+        v-if="errors && 'answer4' in errors"
+        v-bind:errors="errors.answer4"
+      ></error-field>
       <label for="correct">Correct answer?</label>
       <input
         type="text"
         id="correct"
         v-model="question.correct"
         placeholder="Required number from 1-4"
+        v-on:blur="validate"
       />
+      <error-field
+        v-if="errors && 'correct' in errors"
+        v-bind:errors="errors.correct"
+      ></error-field>
       <button class="btn" v-on:click="addQuestion">Add Question</button>
-      <div id="addsucceed" v-if="showConfirmation">Your question was added</div>
-      <div id="addfail" v-if="!showConfirmation">{{ errors }}</div>
+      <transition name="fade">
+        <div id="addsucceed" v-if="showConfirmation">
+          Your question was added
+        </div>
+      </transition>
+      <br />
+      <div id="addfail" v-if="errors">Correct the errors</div>
       <button class="btn" v-on:click="addTestQuestion">
         Fill with dummy data
       </button>
@@ -70,9 +117,12 @@
 </template>
 
 <script>
+import ErrorField from "@/components/ErrorField.vue";
 import { axios } from "@/common/app.js";
+import Validator from "validatorjs";
 
 export default {
+  components: { "error-field": ErrorField },
   data() {
     return {
       showConfirmation: false,
@@ -100,21 +150,44 @@ export default {
     };
   },
   methods: {
-    addQuestion() {
-      this.question.image =
-        "https://source.unsplash.com/400x300/?" + this.question.image;
-      axios.post("/question", this.question).then((response) => {
-        if (response.data.errors) {
-          this.errors = Object.values(response.data.errors)[0][0];
-          this.showConfirmation = false;
-        } else {
-          this.$emit("update-questions");
-          for (const [key] of Object.entries(this.question)) {
-            this.question[key] = "";
-          }
-          this.showConfirmation = true;
-        }
+    validate() {
+      let validator = new Validator(this.question, {
+        quiz: "required|between:1,12",
+        image: "required|between:1,12",
+        question: "required|between:1,100",
+        answer1: "required|between:1,50",
+        answer2: "required|between:1,50",
+        answer3: "required|between:1,50",
+        answer4: "required|between:1,50",
+        correct: "required|integer|between:1,4",
       });
+
+      if (validator.fails()) {
+        this.errors = validator.errors.all();
+      } else {
+        this.errors = null;
+      }
+
+      return validator.passes();
+    },
+    addQuestion() {
+      if (this.validate()) {
+        this.question.image =
+          "https://source.unsplash.com/400x300/?" + this.question.image;
+        axios.post("/question", this.question).then((response) => {
+          if (response.data.errors) {
+            this.errors = Object.values(response.data.errors)[0][0];
+            this.showConfirmation = false;
+          } else {
+            this.$emit("update-questions");
+            for (const [key] of Object.entries(this.question)) {
+              this.question[key] = "";
+            }
+            this.showConfirmation = true;
+            setTimeout(() => (this.showConfirmation = false), 3000);
+          }
+        });
+      }
     },
 
     addTestQuestion() {

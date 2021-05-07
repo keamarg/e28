@@ -1,9 +1,11 @@
 <template>
   <div class="show-product">
-    <div class="name">{{ product.name }}</div>
+    <div class="name" data-test="name">{{ product.name }}</div>
     <img class="thumb" v-bind:src="imgSrc" />
     <div v-if="!editProduct">
-      <div v-if="showProductDetails()" class="price">${{ product.price }}</div>
+      <div v-if="showProductDetails()" class="price" data-test="price">
+        ${{ product.price }}
+      </div>
       <p v-if="showProductDetails()" class="description">
         {{ product.description }}
       </p>

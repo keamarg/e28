@@ -33,7 +33,7 @@
         </label>
       </div>
     </div>
-    <span v-if="loginForm && this.user == null">
+    <span v-if="loginForm && this.user == false">
       <button v-on:click="login">Login</button>
       <ul v-if="errors">
         <li class="error" v-for="(error, index) in errors" :key="index">
@@ -129,7 +129,6 @@ export default {
           this.favorites = response.data.favorite.map((favorite) => {
             return this.$store.getters.getProductById(favorite.product_id);
           });
-          this.$store.commit("setFavorites", this.favorites);
         });
       }
     },

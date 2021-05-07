@@ -2,10 +2,9 @@
     "permission_level": 0,
     "fields": {
         "quiz_id": {
-            "type": "integer",
+            "type": "string",
             "validators": [
-                "required",
-                "numeric"
+                "required"
             ]
         },
         "user_id": {

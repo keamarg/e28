@@ -31,15 +31,6 @@ export default {
       removeCategory: false,
     };
   },
-  methods: {
-    updateQuiz(category) {
-      this.$emit("update-quiz", category);
-    },
-    updateQuestions(category) {
-      this.removeCategory = false;
-      this.$emit("update-questions", category);
-    },
-  },
   computed: {
     categories() {
       let categories = this.questions.map((question) =>
@@ -52,6 +43,15 @@ export default {
     },
     questions() {
       return this.$store.state.questions;
+    },
+  },
+  methods: {
+    updateQuiz(category) {
+      this.$emit("update-quiz", category);
+    },
+    updateQuestions(category) {
+      this.removeCategory = false;
+      this.$emit("update-questions", category);
     },
   },
 };

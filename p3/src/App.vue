@@ -23,15 +23,11 @@
 </template>
 
 <script>
-// import { axios } from "@/common/app.js";
-// import { questions } from "@/common/questions.js";
-
 export default {
   name: "App",
   data() {
     return {
       quiz: "",
-      // questions: [],
       images: [],
       links: ["home", "quiz", "create", "account"],
       paths: {
@@ -49,7 +45,6 @@ export default {
   },
   mounted() {
     this.loadQuestions();
-    this.$store.dispatch("authUser");
   },
   methods: {
     updateQuiz(category) {

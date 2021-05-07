@@ -8,7 +8,12 @@
         id="name"
         v-model="product.name"
         placeholder="Required 3-100 letters"
+        v-on:blur="validate"
       />
+      <error-field
+        v-if="errors && 'name' in errors"
+        v-bind:errors="errors.name"
+      ></error-field>
 
       <label for="sku">SKU:</label>
       <input
@@ -16,7 +21,12 @@
         id="sku"
         v-model="product.sku"
         placeholder="Required 3-100 letters. Must be unique"
+        v-on:blur="validate"
       />
+      <error-field
+        v-if="errors && 'sku' in errors"
+        v-bind:errors="errors.sku"
+      ></error-field>
 
       <label for="price">Price:</label>
       <input
@@ -24,7 +34,12 @@
         id="price"
         v-model="product.price"
         placeholder="Required must be a number."
+        v-on:blur="validate"
       />
+      <error-field
+        v-if="errors && 'price' in errors"
+        v-bind:errors="errors.price"
+      ></error-field>
 
       <label for="available">Quantity available:</label>
       <input
@@ -32,7 +47,12 @@
         id="available"
         v-model="product.available"
         placeholder="Required must be a number."
+        v-on:blur="validate"
       />
+      <error-field
+        v-if="errors && 'available' in errors"
+        v-bind:errors="errors.available"
+      ></error-field>
 
       <label for="weight">Weight (in lbs):</label>
       <input
@@ -40,7 +60,12 @@
         id="weight"
         v-model="product.weight"
         placeholder="Required must be a number."
+        v-on:blur="validate"
       />
+      <error-field
+        v-if="errors && 'weight' in errors"
+        v-bind:errors="errors.weight"
+      ></error-field>
 
       <label for="perishable" class="form-checkbox-label">
         <input type="checkbox" v-model="product.perishable" id="perishable" />
@@ -52,7 +77,12 @@
         id="description"
         v-model="product.description"
         placeholder="Required min. 100 letters"
+        v-on:blur="validate"
       ></textarea>
+      <error-field
+        v-if="errors && 'description' in errors"
+        v-bind:errors="errors.description"
+      ></error-field>
 
       <label for="categories">Choose a category:</label>
       <select v-model="product.categories">
@@ -68,17 +98,19 @@
     <transition name="fade">
       <div id="addsucceed" v-if="showConfirmation">Your product was added</div>
     </transition>
-
-    <div id="addfail" v-if="!showConfirmation">{{ errors }}</div>
-
+    <br />
+    <div id="addfail" v-if="errors">Please correct the errors</div>
     <button v-on:click="addTestProduct">Fill Test Data</button>
   </div>
 </template>
 
 <script>
+import ErrorField from "@/components/ErrorField.vue";
 import { axios } from "@/common/app.js";
+import Validator from "validatorjs";
 
 export default {
+  components: { "error-field": ErrorField },
   data() {
     return {
       showConfirmation: false,
@@ -107,21 +139,41 @@ export default {
     };
   },
   methods: {
-    addProduct() {
-      axios.post("/product", this.product).then((response) => {
-        if (response.data.errors) {
-          this.errors = Object.values(response.data.errors)[0][0];
-          this.showConfirmation = false;
-        } else {
-          this.$emit("update-products");
-          for (const [key] of Object.entries(this.product)) {
-            this.product[key] = "";
-          }
-          this.categories = "none";
-          this.showConfirmation = true;
-          setTimeout(() => (this.showConfirmation = false), 3000);
-        }
+    validate() {
+      let validator = new Validator(this.product, {
+        name: "required|between:3,100",
+        sku: "required|between:3,100|alpha_dash",
+        price: "required|numeric",
+        available: "required|numeric",
+        weight: "required|numeric",
+        description: "required|min:100",
       });
+
+      if (validator.fails()) {
+        this.errors = validator.errors.all();
+      } else {
+        this.errors = null;
+      }
+
+      return validator.passes();
+    },
+    addProduct() {
+      if (this.validate()) {
+        axios.post("/product", this.product).then((response) => {
+          if (response.data.errors) {
+            this.errors = Object.values(response.data.errors)[0][0];
+            this.showConfirmation = false;
+          } else {
+            this.$emit("update-products");
+            for (const [key] of Object.entries(this.product)) {
+              this.product[key] = "";
+            }
+            this.categories = "none";
+            this.showConfirmation = true;
+            setTimeout(() => (this.showConfirmation = false), 3000);
+          }
+        });
+      }
     },
 
     addTestProduct() {

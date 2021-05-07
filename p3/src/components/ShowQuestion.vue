@@ -1,10 +1,21 @@
 <template>
-  <div v-if="detailed">
-    <p>This is just a preview of the question, not the quiz.</p>
+  <div v-if="detailed" class="questionWrapper">
+    <h4 class="redText">This is just a preview of the question.</h4>
     <br />
-    <router-link to="/">Back to home page</router-link>
+    <div class="question">
+      {{ question.question }}
+    </div>
+    <ul
+      class="question"
+      v-for="(answer, index) in question.answers"
+      v-bind:key="index"
+    >
+      <li>
+        {{ question.answers[index][0] }}
+      </li>
+    </ul>
   </div>
-  <div class="show-question">
+  <div v-else class="show-question">
     <div class="question">
       {{ question.question }}
     </div>
@@ -23,6 +34,7 @@
       </div>
     </div>
   </div>
+  <router-link v-if="detailed" to="/">Back to home page</router-link>
 </template>
 
 <script>
@@ -42,20 +54,10 @@ export default {
     },
   },
   emits: ["update-score"],
-
   data() {
     return {
       guessed: false,
     };
-  },
-  methods: {
-    testAnswer(index) {
-      if (!this.guessed) {
-        this.$emit("update-score", this.question.answers[index]);
-        this.guessed = true;
-      }
-      this.guessed = false;
-    },
   },
   computed: {
     imgSrc() {
@@ -66,14 +68,36 @@ export default {
       }
     },
   },
+  methods: {
+    testAnswer(index) {
+      if (!this.guessed) {
+        this.$emit("update-score", this.question.answers[index]);
+        this.guessed = true;
+      }
+      this.guessed = false;
+    },
+  },
 };
 </script>
 
 <style scoped>
 .question {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin: 5px 0 10px 0;
   vertical-align: baseline;
+}
+
+.questionWrapper {
+  width: 30rem;
+  text-align: left;
+  margin: 0 auto;
+}
+.questionWrapper li {
+  font-size: 1.5rem;
+  font-style: italic;
+}
+.redText {
+  color: red;
 }
 
 .thumb {

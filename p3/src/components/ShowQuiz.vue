@@ -37,6 +37,20 @@ export default {
       errors: null,
     };
   },
+  computed: {
+    categories() {
+      let categories = this.questions.map((question) =>
+        question.quiz.split(",")
+      );
+      let mergedCategories = [].concat.apply([], categories);
+
+      // Return unique, sorted categories
+      return [...new Set(mergedCategories)].sort();
+    },
+    user() {
+      return this.$store.state.user;
+    },
+  },
   methods: {
     deleteQuiz(quiz) {
       let quizQuestion = "";
@@ -53,20 +67,6 @@ export default {
           });
         }
       });
-    },
-  },
-  computed: {
-    categories() {
-      let categories = this.questions.map((question) =>
-        question.quiz.split(",")
-      );
-      let mergedCategories = [].concat.apply([], categories);
-
-      // Return unique, sorted categories
-      return [...new Set(mergedCategories)].sort();
-    },
-    user() {
-      return this.$store.state.user;
     },
   },
 };

@@ -2,11 +2,11 @@
     "seeds": [
         {
             "user_id": 1,
-            "quiz_id": 1
+            "quiz_id": "wine"
         },
         {
             "user_id": 1,
-            "quiz_id": 2
+            "quiz_id": "toys"
         }
     ]
 }

@@ -13,7 +13,9 @@
             v-bind:key="link"
             v-bind:to="paths[link]"
           >
-            <span v-if="link == 'cart'">({{ cartCount }})</span>
+            <span data-test="cart-count" v-if="link == 'cart'"
+              >({{ cartCount }})</span
+            >
 
             {{ link }}</router-link
           >
