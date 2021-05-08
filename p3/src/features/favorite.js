@@ -20,13 +20,11 @@ export default function favorite(quizId) {
             // and a given product id so we narrow the results down to [0]
             favoriteId.value = response.data.favoritequiz[0].id;
             isFavorite.value = true;
-            console.log("favoriteId: " + favoriteId.value)
         }
     });
 
     // Method
     const addToFavorites = () => {
-        console.log("adding: " + quizId + "to user_id: " + user.value.id);
         axios.post('/favoritequiz', {
             quiz_id: quizId,
             user_id: user.value.id
