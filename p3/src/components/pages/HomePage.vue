@@ -3,7 +3,11 @@
     <h1>Pick a quiz</h1>
     <p>
       This is a platform for creating your own quizzes. <br />There is a premade
-      quiz about wine, but create whatever you like!
+      quiz about wine, but
+      <router-link data-test="nav-link-create" to="/create"
+        >create
+      </router-link>
+      whatever you like!
     </p>
     <ul class="clean-list">
       <div v-for="(category, id) in categories" v-bind:key="id">

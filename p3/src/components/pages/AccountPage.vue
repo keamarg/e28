@@ -1,7 +1,7 @@
 <template>
   <div id="account-page">
     <div v-if="user">
-      <h2>Hi, {{ user.name }}!</h2>
+      <h2 data-test="welcome-message">Hi, {{ user.name }}!</h2>
 
       <div id="favorites">
         <strong>Your Favorite Quizzes</strong>
@@ -21,7 +21,7 @@
         <br />
       </div>
 
-      <button v-on:click="logout">Logout</button>
+      <button v-on:click="logout" data-test="logout-button">Logout</button>
     </div>
 
     <div v-else-if="loginForm" class="loginForm">
@@ -30,18 +30,24 @@
       <div>
         <label>
           Email:
-          <input type="text" v-model="data.email" />
+          <input type="text" v-model="data.email" data-test="email-input" />
         </label>
       </div>
       <div>
         <label>
           Password:
-          <input type="password" v-model="data.password" />
+          <input
+            type="password"
+            v-model="data.password"
+            data-test="password-input"
+          />
         </label>
       </div>
     </div>
     <span v-if="loginForm && this.user == false">
-      <button v-on:click="login" class="btn">Login</button>
+      <button v-on:click="login" class="btn" data-test="login-button">
+        Login
+      </button>
       <p v-if="errors" class="fail">{{ errors[0] }}</p>
       <p>Or create new user</p>
       <button v-on:click="changeForm('registerForm')">Create user</button>
@@ -52,6 +58,7 @@
         <label>
           Name:
           <input
+            data-test="name-input"
             type="text"
             v-model="registrationData.name"
             v-on:input="validate"
@@ -69,6 +76,7 @@
             type="text"
             v-model="registrationData.email"
             v-on:input="validate"
+            data-test="email-input"
           />
         </label>
       </div>
@@ -80,6 +88,7 @@
         <label>
           Password:
           <input
+            data-test="password-input"
             type="password"
             v-model="registrationData.password"
             v-on:input="validate"
@@ -91,7 +100,9 @@
         v-bind:errors="errors.password"
       ></error-field>
 
-      <button v-on:click="createUser" class="btn">Create user</button>
+      <button data-test="create-button" v-on:click="createUser" class="btn">
+        Create user
+      </button>
       <p>Or login with existing user</p>
       <button v-on:click="changeForm('loginForm')">Login</button>
     </div>

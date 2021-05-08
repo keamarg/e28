@@ -5,6 +5,7 @@
     <div id="inputs">
       <label for="quiz">Question category</label>
       <input
+        data-test="quiz-quiz-input"
         type="text"
         id="quiz"
         v-model="question.quiz"
@@ -17,6 +18,7 @@
       ></error-field>
       <label for="image">Image keyword</label>
       <input
+        data-test="quiz-image-input"
         type="text"
         id="image"
         v-model="question.image"
@@ -31,6 +33,7 @@
 
       <label for="question">Question</label>
       <input
+        data-test="quiz-question-input"
         type="text"
         id="question"
         v-model="question.question"
@@ -43,6 +46,7 @@
       ></error-field>
       <label for="answer1">Answer 1</label>
       <input
+        data-test="quiz-answer1-input"
         type="text"
         id="answer1"
         v-model="question.answer1"
@@ -55,6 +59,7 @@
       ></error-field>
       <label for="answer2">Answer 2</label>
       <input
+        data-test="quiz-answer2-input"
         type="text"
         id="answer2"
         v-model="question.answer2"
@@ -67,6 +72,7 @@
       ></error-field>
       <label for="answer3">Answer 3</label>
       <input
+        data-test="quiz-answer3-input"
         type="text"
         id="answer3"
         v-model="question.answer3"
@@ -79,6 +85,7 @@
       ></error-field>
       <label for="answer4">Answer 4</label>
       <input
+        data-test="quiz-answer4-input"
         type="text"
         id="answer4"
         v-model="question.answer4"
@@ -91,6 +98,7 @@
       ></error-field>
       <label for="correct">Correct answer?</label>
       <input
+        data-test="quiz-correct-input"
         type="text"
         id="correct"
         v-model="question.correct"
@@ -101,9 +109,19 @@
         v-if="errors && 'correct' in errors"
         v-bind:errors="errors.correct"
       ></error-field>
-      <button class="btn" v-on:click="addQuestion">Add Question</button>
+      <button
+        data-test="add-question-button"
+        class="btn"
+        v-on:click="addQuestion"
+      >
+        Add Question
+      </button>
       <transition name="fade">
-        <div id="addsucceed" v-if="showConfirmation">
+        <div
+          id="addsucceed"
+          v-if="showConfirmation"
+          data-test="question-added-confirmation"
+        >
           Your question was added
         </div>
       </transition>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Access Denied</h1>
+    <h1 data-test="access-denied-heading">Access Denied</h1>
     <p>
       <router-link to="/account">
         <span v-on:click="setForm"> Create an account </span> </router-link
