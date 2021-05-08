@@ -36,13 +36,17 @@
       <img alt="logo" src="https://source.unsplash.com/400x300/?quiz" /><br />
       <div>
         <button
-          v-if="isFavorite"
+          v-if="user && isFavorite"
           class="btn favBtn"
           v-on:click="removeFromFavorites()"
         >
           ✘ Remove from favorites
         </button>
-        <button v-else class="btn favBtn" v-on:click="addToFavorites()">
+        <button
+          v-else-if="user"
+          class="btn favBtn"
+          v-on:click="addToFavorites()"
+        >
           ✔ Add to favorites
         </button>
       </div>
